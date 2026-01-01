@@ -1,0 +1,26 @@
+{
+    "name": "Java 21 入門講座",
+    "image": "mcr.microsoft.com/devcontainers/java:1-21-bookworm",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "MS-CEINTL.vscode-language-pack-ja"
+            ],
+            "settings": {
+                "force.locale": "ja",
+                "files.encoding": "utf8",
+                "editor.fontSize": 14,
+                "java.errors.incompleteClasspath.severity": "ignore",
+                "java.configuration.updateBuildConfiguration": "automatic",
+                "java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+                "terminal.integrated.env.linux": {
+                    "LANG": "ja_JP.UTF-8",
+                    "LC_ALL": "ja_JP.UTF-8"
+                }
+            }
+        }
+    },
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y locales && sudo sed -i -e 's/# ja_JP.UTF-8 UTF-8/ja_JP.UTF-8 UTF-8/' /etc/locale.gen && sudo locale-gen && java -version",
+    "remoteUser": "vscode"
+}
