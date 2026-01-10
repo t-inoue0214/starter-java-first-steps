@@ -4,7 +4,7 @@ public class ReferenceDemo {
         // 【プリミティブ型】
         // -------------------------
         // データそのものが入っています。小文字で始まります (int, double, boolean)。
-        int number = 100;
+        char character = 'a';
         
         // -------------------------
         // 【参照型】
@@ -13,7 +13,7 @@ public class ReferenceDemo {
         // 便利な機能（メソッド）をたくさん持っています。
         String message = "Hello Java";
 
-        System.out.println(number);
+        System.out.println(character);
         System.out.println(message);
 
         // 参照型だけの特徴：データに対して「命令」ができる！
@@ -24,6 +24,6 @@ public class ReferenceDemo {
         System.out.println("大文字: " + message.toUpperCase());
         
         // プリミティブ型でこれをやろうとするとエラーになります
-        // number.length(); // ← これはできません
+        // character.length(); // ← これはできません
     }
 }
