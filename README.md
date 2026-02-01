@@ -6,7 +6,9 @@
 
 超入門レベルであれば、どのプログラミング言語でも良いのですが、仕事では多くの現場がJava言語です。そのため、ここではJava言語を使って簡単なプログラミングの経験を積み、より高度な学習にすすめることを目指します。
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/USERNAME/REPOSITORY_NAME)
+> **⚠️ 学習上の重要ルール**
+> [Oracle公式ドキュメント(dev.java)](https://dev.java/learn/) の情報が「最新かつ正確」な一次情報です。
+> ここで記載した内容や、もし AI から回答を得た場合であっても、**必ず [Oracle公式ドキュメント(dev.java)](https://dev.java/learn/) の記載を確認しながら実装する癖** をつけてください。
 
 ---
 
@@ -53,15 +55,18 @@
 
 ## 2. 学習の始め方
 
-1. **環境の準備を待つ**
-   - ブラウザでVS Codeが起動します。
-   - 初回はJavaのセットアップや日本語化のために1〜2分ほどかかります。
-   - 左下のステータスバーなどが落ち着くまで少し待ちましょう。
+1. Codespaces を起動
+    - [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/t-inoue0214/starter-java-first-steps)
 
-2. **学習スタート！**
-   - 左側のファイル一覧から `01_introduction` フォルダを開きます。
-   - `README.md` をクリックして開き、解説を読みながら進めてください。
-   - `README.md` を右クリックして「プレビューを開く (Open Preview)」を選ぶと読みやすくなります。
+1. **環境の準備を待つ**
+    - ブラウザでVS Codeが起動します。
+    - 初回はJavaのセットアップや日本語化のために1〜2分ほどかかります。
+    - 左下のステータスバーなどが落ち着くまで少し待ちましょう。
+
+1. **学習スタート！**
+    - 左側のファイル一覧から `01_introduction` フォルダを開きます。
+    - `README.md` をクリックして開き、解説を読みながら進めてください。
+    - `README.md` を右クリックして「プレビューを開く (Open Preview)」を選ぶと読みやすくなります。
 
 ---
 
