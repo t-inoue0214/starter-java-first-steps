@@ -24,11 +24,11 @@ GitHub には以下のアカウント種別があります。
 
 1. **GitHub の右上プロフィールアイコン**をクリックして **Settings** をクリックする
 
-   ![github-my-icon](/assets/img/github-my-icon.png)
+   ![github-my-icon](/assets/github-my-icon.png)
 
 2. 左メニューの **Billing and licensing** をクリックして、**Licensing**をクリックして開く
 
-   ![github-licensing](/assets/img/github-licensing.png)
+   ![github-licensing](/assets/github-licensing.png)
 
 3. **Current GitHub base plan**が以下になっていることを確認
 
@@ -72,8 +72,8 @@ GitHub には以下のアカウント種別があります。
 
 1. `Code`タブに移動し、右上にある緑色の`code`のプルダウンメニューを開き、`Codespace`タブを開き、`Active`の右側にある三点リーダー（・・・）をクリックして`Delete`をクリックします。
 
-   ![stop-code-space](/assets/img/stop-code-space.png)
+   ![stop-code-space](/assets/stop-code-space.png)
 
 1. 確認ダイアログが表示されるので`Delete`をクリックします。
 
-   ![delete-code-space](/assets/img/delete-code-space.png)
+   ![delete-code-space](/assets/delete-code-space.png)
