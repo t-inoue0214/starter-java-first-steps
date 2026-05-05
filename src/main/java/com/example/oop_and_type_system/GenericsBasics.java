@@ -16,14 +16,15 @@ public class GenericsBasics {
     // ---------------------------------------------------------
 
     // Object型で何でも入る箱を作った（ジェネリクスを知らない時代の書き方）
-    static class ObjectBox {
+    private static class ObjectBox {
+
         private Object value; // Object型なら String でも Integer でも入る
 
-        void set(Object value) {
+        public void set(Object value) {
             this.value = value;
         }
 
-        Object get() {
+        public Object get() {
             return this.value; // 取り出しは Object型で返ってくる
         }
     }
@@ -33,14 +34,15 @@ public class GenericsBasics {
     // ---------------------------------------------------------
 
     // <T> が「型パラメータ」。Box<String> と書くと T が String に置き換わる
-    static class Box<T> {
+    private static class Box<T> {
+
         private T value; // T型として保管する
 
-        void set(T value) {
+        public void set(T value) {
             this.value = value;
         }
 
-        T get() {
+        public T get() {
             return this.value; // T型のまま返るのでキャスト不要
         }
     }
@@ -48,12 +50,18 @@ public class GenericsBasics {
     // ---------------------------------------------------------
     // 応用例: 境界型パラメータ <T extends Number>
     // ---------------------------------------------------------
+    // ここはやや応用的な内容です。
+    // 「Box<String> と Box<Integer> を別々に作ったが、
+    //  Number（Integer や Double）を同じ計算メソッドで扱いたい」
+    // という現実の問題から生まれた仕組みです。
+    // 「T は Number の仲間だけに限定する」という制約が <T extends Number> の意味です。
+    // 初めて読むときは「こういうことも書けるんだ」と流して OK です。
 
     // <T extends Number> は「NumberのサブタイプならどれでもOK」という制約
     // Integer, Double, Long などを同じメソッドで受け取れる
-    static <T extends Number> double sum(List<T> list) {
-        var total = 0.0;
-        for (var n : list) {
+    private static <T extends Number> double sum(List<T> list) {
+        double total = 0.0;
+        for (T n : list) {
             // Number型には doubleValue() が定義されているので呼び出せる
             total += n.doubleValue();
         }
@@ -64,7 +72,7 @@ public class GenericsBasics {
 
         System.out.println("=== Before: Object型の箱（危険な書き方） ===");
 
-        var objectBox = new ObjectBox();
+        ObjectBox objectBox = new ObjectBox();
         objectBox.set("こんにちは"); // String を入れた
 
         // 取り出すときは (String) とキャストが必要
@@ -86,7 +94,7 @@ public class GenericsBasics {
         System.out.println("=== After: ジェネリクスの箱（型安全な書き方） ===");
 
         // Box<String> と宣言すれば、String しか入れられない
-        var stringBox = new Box<String>();
+        Box<String> stringBox = new Box<>();
         stringBox.set("こんにちは");
 
         // キャスト不要！ 型が保証されているので String として直接受け取れる
@@ -97,7 +105,7 @@ public class GenericsBasics {
         // stringBox.set(12345); // コンパイルエラー: int は String に入れられない
 
         // Integer 専用の箱も作れる
-        var intBox = new Box<Integer>();
+        Box<Integer> intBox = new Box<>();
         intBox.set(42);
         int number = intBox.get(); // こちらも Integer として型安全に取り出せる
         System.out.println("Integer箱から取り出した値: " + number);
@@ -106,11 +114,15 @@ public class GenericsBasics {
         System.out.println("=== 応用: 境界型パラメータ <T extends Number> ===");
 
         // Integer のリストを sum() に渡せる
-        var integers = List.of(1, 2, 3, 4, 5);
+        // [Java 7 不可] List.of() は Java 9 以降。Java 7 では Arrays.asList() を使う:
+        //   List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> integers = List.of(1, 2, 3, 4, 5);
         System.out.println("整数リストの合計: " + sum(integers));
 
         // Double のリストも同じ sum() で処理できる
-        var doubles = List.of(1.1, 2.2, 3.3);
+        // [Java 7 不可] List.of() は Java 9 以降。Java 7 では Arrays.asList() を使う:
+        //   List<Double> doubles = Arrays.asList(1.1, 2.2, 3.3);
+        List<Double> doubles = List.of(1.1, 2.2, 3.3);
         System.out.println("小数リストの合計: " + sum(doubles));
 
         // String のリストは渡せない（Number のサブタイプでないため）

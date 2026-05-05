@@ -15,7 +15,9 @@ public class LambdaBasics {
 
     public static void main(String[] args) {
 
-        var names = List.of("Alice", "Bob", "Charlie", "Dave");
+        // [Java 7 不可] List.of() は Java 9 以降。Java 7 では Arrays.asList() を使う:
+        //   List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "Dave");
+        List<String> names = List.of("Alice", "Bob", "Charlie", "Dave");
 
         // ---------------------------------------------------------
         // 段階1: 通常のforループ（古典的な書き方）
@@ -27,14 +29,25 @@ public class LambdaBasics {
             System.out.println(name);
         }
 
+        // ── Step1→Step4 はすべて同じ動作です。書き方だけが変わっていきます ──
+
         // ---------------------------------------------------------
         // 段階2: 匿名クラスを使った forEach（中間段階）
         // ---------------------------------------------------------
         System.out.println();
         System.out.println("=== Step2 中間: 匿名クラスで forEach ===");
 
+        // 「匿名クラス」とは、名前を付けずにその場でクラスを定義してしまう書き方です。
+        // 「Consumer というインターフェースを実装したクラスを、今この瞬間だけ作る」というイメージです。
+        // ここでは「こういう書き方もある」と把握すれば十分です。
+        // Step3 のラムダ式を見たとき「あ、匿名クラスを短く書いただけか」と気づけることが目標です。
+
         // forEach は「各要素に対して何かをする」というConsumer<T>を受け取る
         // Consumer<T> は関数型インターフェース（詳しくは FunctionalInterfaces.java で学ぶ）
+        // [Java 7 不可] List.forEach() は Java 8 以降のメソッド。
+        //              匿名クラスを使っても Java 7 では呼び出せない。
+        //              Java 7 では拡張 for ループで書く:
+        //   for (String name : names) { System.out.println(name); }
         names.forEach(new Consumer<String>() {
             @Override
             public void accept(String name) {
@@ -52,6 +65,7 @@ public class LambdaBasics {
 
         // name -> System.out.println(name) が Consumer<String> の匿名クラスと同じ意味
         // 「引数 -> 処理」という形が ラムダ式の基本構文
+        // [Java 7 不可] ラムダ式は Java 8 以降
         names.forEach(name -> System.out.println(name));
 
         // ---------------------------------------------------------
@@ -63,6 +77,7 @@ public class LambdaBasics {
         // 「name -> System.out.println(name)」は
         // 「引数をそのまま println に渡すだけ」なので、メソッド参照で書ける
         // クラス名::メソッド名 の形式（:: がメソッド参照の記号）
+        // [Java 7 不可] メソッド参照は Java 8 以降
         names.forEach(System.out::println);
 
         // ---------------------------------------------------------
@@ -71,7 +86,9 @@ public class LambdaBasics {
         System.out.println();
         System.out.println("=== 対比: 偶数だけ表示（for+if版 vs ラムダ版） ===");
 
-        var numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        // [Java 7 不可] List.of() は Java 9 以降。Java 7 では Arrays.asList() を使う:
+        //   List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
         // --- for + if 版（ループの枠組みと条件判定が混在している） ---
         System.out.print("for+if版: ");
@@ -85,6 +102,7 @@ public class LambdaBasics {
         // --- ラムダ版（「絞り込む」と「表示する」を分けて読める） ---
         // stream().filter() で条件に合う要素だけを通し、forEach() で表示する
         // 「何をするか」の意図がコードの流れとして読める
+        // [Java 7 不可] Stream API は Java 8 以降
         System.out.print("ラムダ版:  ");
         numbers.stream()
                .filter(n -> n % 2 == 0)    // 偶数だけ通す
@@ -108,7 +126,8 @@ public class LambdaBasics {
         // パターン3: 引数2つ以上（括弧が必要）
         // Comparator は2つの引数を受け取る関数型インターフェース
         java.util.Comparator<String> byLength = (a, b) -> a.length() - b.length();
-        var sorted = names.stream().sorted(byLength).toList();
+        // [Java 7 不可] Stream.toList() は Java 16 以降。Java 8〜15 では .collect(Collectors.toList()) を使う
+        List<String> sorted = names.stream().sorted(byLength).toList();
         System.out.println("長さ順に並び替え: " + sorted);
 
         // パターン4: 処理が複数行の場合はブロック {}を使う

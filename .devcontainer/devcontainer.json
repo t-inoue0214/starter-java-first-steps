@@ -3,19 +3,29 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
+    "features": {
+        "ghcr.io/devcontainers/features/node:2.0.0": {
+            "version": "lts"
+        }
+    },
     "customizations": {
         "vscode": {
             "extensions": [
                 "vscjava.vscode-java-pack",
-                "MS-CEINTL.vscode-language-pack-ja"
+                "MS-CEINTL.vscode-language-pack-ja",
+                "davidanson.vscode-markdownlint",
+                "Anthropic.claude-code"
             ],
             "settings": {
                 "files.encoding": "utf8",
                 "java.server.launchMode": "Standard",
                 "java.configuration.updateBuildConfiguration": "automatic",
-                "java.jdt.ls.java.home": "/usr/lib/jvm/msopenjdk-current"
+                "java.jdt.ls.java.home": "/usr/lib/jvm/msopenjdk-current",
+                "editor.codeActionsOnSave": {
+                    "source.fixAll.markdownlint": "explicit"
+                }
             }
         }
     },
-    "postCreateCommand": "java -version"
+    "postCreateCommand": "npm install -g markdownlint-cli2 textlint textlint-rule-preset-ja-technical-writing textlint-rule-prh"
 }

@@ -14,13 +14,13 @@ public class EnumBasics {
     // ---------------------------------------------------------
 
     // 注文状態をStringの定数で管理している（昔ながらの書き方）
-    static final String STATUS_ORDERED   = "ORDERED";
-    static final String STATUS_SHIPPED   = "SHIPPED";
-    static final String STATUS_DELIVERED = "DELIVERED";
-    static final String STATUS_CANCELLED = "CANCELLED";
+    private static final String STATUS_ORDERED   = "ORDERED";
+    private static final String STATUS_SHIPPED   = "SHIPPED";
+    private static final String STATUS_DELIVERED = "DELIVERED";
+    private static final String STATUS_CANCELLED = "CANCELLED";
 
     // String定数を受け取って状態を表示するメソッド（Before版）
-    static void showStatusBefore(String status) {
+    private static void showStatusBefore(String status) {
         // if-elseで文字列を比較している
         if (status.equals(STATUS_ORDERED)) {
             System.out.println("[Before] 注文受付済み");
@@ -41,7 +41,8 @@ public class EnumBasics {
     // ---------------------------------------------------------
 
     // Enumを使うと「注文状態」として有効な値だけを型で表現できる
-    enum OrderStatus {
+    // 選択肢が明確で、誤字の心配もない
+    private enum OrderStatus {
         ORDERED,    // 注文受付済み
         SHIPPED,    // 発送済み
         DELIVERED,  // 配達完了
@@ -50,10 +51,12 @@ public class EnumBasics {
 
     // OrderStatus型を受け取るメソッド（After版）
     // Java 21のswitch式（-> 構文）でスッキリ書ける
-    static void showStatusAfter(OrderStatus status) {
+    private static void showStatusAfter(OrderStatus status) {
         // switch式はすべてのケースを網羅しないとコンパイルエラーになる
         // 新しい状態をEnumに追加したとき、ここでの対応漏れをコンパイラが教えてくれる
-        var message = switch (status) {
+        // [Java 7 不可] switch 式（-> 構文）は Java 14 以降。Java 7 では switch 文で書く:
+        //   switch (status) { case ORDERED: message = "注文受付済み"; break; ... }
+        String message = switch (status) {
             case ORDERED   -> "注文受付済み";
             case SHIPPED   -> "発送済み";
             case DELIVERED -> "配達完了";
@@ -67,7 +70,7 @@ public class EnumBasics {
     // ---------------------------------------------------------
 
     // Enumはただの定数一覧ではなく、フィールドやメソッドも持てる
-    enum Season {
+    private enum Season {
         SPRING("春"), SUMMER("夏"), AUTUMN("秋"), WINTER("冬");
 
         // 各定数が持つフィールド（日本語名）
@@ -79,7 +82,7 @@ public class EnumBasics {
         }
 
         // 日本語名を返すメソッド
-        String japanese() {
+        public String japanese() {
             return japanese;
         }
     }
@@ -113,14 +116,16 @@ public class EnumBasics {
         System.out.println("=== 応用: フィールドを持つEnum (Season) ===");
 
         // すべての季節をループして日本語名を表示する
-        for (var season : Season.values()) {
+        for (Season season : Season.values()) {
             // name() は定数名（英語）を返す組み込みメソッド
             System.out.println(season.name() + " → " + season.japanese());
         }
 
         // switch式と組み合わせる応用例
-        var current = Season.SPRING;
-        var advice = switch (current) {
+        Season current = Season.SPRING;
+        // [Java 7 不可] switch 式（-> 構文）は Java 14 以降。Java 7 では switch 文で書く:
+        //   switch (current) { case SPRING: advice = "お花見シーズンです"; break; ... }
+        String advice = switch (current) {
             case SPRING -> "お花見シーズンです";
             case SUMMER -> "熱中症に気をつけて";
             case AUTUMN -> "読書の秋です";

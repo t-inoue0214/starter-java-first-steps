@@ -23,7 +23,10 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         int count = 0;
 
-        // 3. 正解するまで繰り返す (無限ループ)
+        // 3. 正解するまで繰り返す（意図的な無限ループ + break パターン）
+        // while (true) で「最初から条件を true にする」意図的な無限ループを作り、
+        // break で出口を用意する。終了条件が実行前に決まらないときに現場でよく使われる定番パターン。
+        // ★ break を消すと、正解しても永遠にゲームが続きます（第03章の無限ループとの違いに注目）。
         while (true) {
             count++;
             System.out.print("数字を入力してください > ");
@@ -43,6 +46,6 @@ public class Game {
         }
 
         System.out.println("ゲーム終了");
-        scanner.close(); // 後片付け
+        scanner.close(); // 使い終わったリソースは必ず close() で閉じる（現場の鉄則）
     }
 }

@@ -11,9 +11,21 @@ package com.example.class_and_objects;
 public class Main {
     public static void main(String[] args) {
 
-        // =========================================================
-        // Before: public フィールドを直接触る問題のある書き方
-        // =========================================================
+        // ========== Step 0: 手続き型でデータを管理する限界 ==========
+        // クラスを使わずに、バラバラな変数で犬の情報を管理してみる
+        String dog1Name = "ポチ";
+        int    dog1Age  = 3;
+        String dog2Name = "ハチ";
+        int    dog2Age  = 5;
+
+        System.out.println("=== 変数バラバラ管理の問題 ===");
+        System.out.println(dog1Name + " は " + dog1Age + " 歳");
+        System.out.println(dog2Name + " は " + dog2Age + " 歳");
+        // 犬が増えるたびに変数が2つずつ増える。犬が10匹なら変数20個、100匹なら200個。
+        // さらに「dog2Name と dog2Age が同じ犬のデータ」という保証がコードにない。
+        // → この限界を解決するのがクラス（データと振る舞いをひとまとめにする道具）
+
+        // ========== Before: public フィールドを直接触る問題のある書き方 ==========
         System.out.println("=== Before: public フィールド ===");
 
         DogBefore dog1 = new DogBefore();
@@ -27,9 +39,7 @@ public class Main {
         System.out.println("不正な値を書き込んでしまった:");
         dog1.introduce(); // -100歳の犬が表示されてしまう
 
-        // =========================================================
-        // After: private フィールド＋コンストラクタ＋ゲッターの正しい書き方
-        // =========================================================
+        // ========== After: private フィールド＋コンストラクタ＋ゲッターの正しい書き方 ==========
         System.out.println("\n=== After: private フィールド ===");
 
         // コンストラクタで名前と年齢をセットしてオブジェクトを作る
@@ -42,6 +52,13 @@ public class Main {
 
         Dog dog3 = new Dog("コロ", 2);
         dog3.bark();
+
+        // ----------------------------------------
+        // ここで学んだ「new Dog("ハチ", 5)」と同じ仕組みで、
+        // 第05章では「new Scanner(System.in)」「new ArrayList<>()」を使う。
+        // Java 標準クラスも、あなたが作った Dog クラスも、
+        // 「設計図（クラス）から実体（インスタンス）を作る」という同じ仕組みで動いている。
+        // ----------------------------------------
     }
 
     // ---------------------------------------------------------
@@ -52,7 +69,7 @@ public class Main {
         public String name;
         public int age;
 
-        void introduce() {
+        public void introduce() {
             System.out.println("私の名前は" + name + "です。" + age + "歳です。");
         }
     }
@@ -82,6 +99,10 @@ public class Main {
         public int getAge() {
             return age; // age の値を返す（書き換えはできない）
         }
+
+        // 【設計ポイント: なぜ setAge() がないのか？】
+        // 値を後から書き換えるメソッド（setter）は意図的に作っていない。
+        // 「なぜ setter を書かないのか」の答えは第08章のイミュータブル設計で学ぶ。
 
         // ---------------------------------------------------------
         // 戻り値ありメソッド: 文字列を組み立てて返す

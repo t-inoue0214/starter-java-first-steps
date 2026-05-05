@@ -26,14 +26,21 @@ public class Calc {
         // -------------------------
         double pi = 3.14;
         char initial = 'J'; // 1文字はシングルクォート
+        // → この true / false は第03章の if 文で「条件分岐」に使います
         boolean isJavaFun = true;
-        String message = "Java"; // 文字列はダブルクォート
+        String message = "Java"; // 文字列はダブルクォート（String は参照型。詳しくは ReferenceDemo.java）
 
         System.out.println(initial + "ava"); // 文字をつなげることもできます
+        System.out.println("小数: " + pi);
+        System.out.println("真偽値: " + isJavaFun);
+        System.out.println("文字列: " + message);
 
         // -------------------------
         // 3. 整数の計算と「割り算の罠」
         // -------------------------
+        // ========== Before: 整数どうしの割り算（罠） ==========
+        // int ÷ int の結果は「整数」になる。小数点以下は無条件で切り捨て。
+        // 5 ÷ 2 は 2.5 ではなく 2 になってしまう！
         int apple = 5;
         int people = 2;
         System.out.println("整数の割り算: " + (apple / people)); // 結果は 2.5 ではなく 2 になってしまう！
@@ -41,6 +48,7 @@ public class Calc {
         // -------------------------
         // 4. キャスト（型変換）を使って期待値通りの計算をする
         // -------------------------
+        // ========== After: キャスト (double) で正確な割り算 ==========
         // (double) をつけることで、「一時的に実数として扱って！」と命令します
         System.out.println("正確な割り算: " + ((double) apple / people));
 
@@ -50,63 +58,23 @@ public class Calc {
         double tax = 0.1;
         int price = 1000;
 
+        // ========== Before: 型が合わずコンパイルエラーになる例 ==========
         // 以下の行のコメント（//）を消すと、赤い波線（エラー）が出ます。試してみましょう。
         // int result = price * tax;
-
         // 理由：計算結果は double (100.0) になるため、小さな int の箱には入りません。
-        // これを無理やり入れるときもキャストを使います。
+
+        // ========== After: (int) キャストで強制変換 ==========
+        // 小数点以下が消えてもいいから、無理やり整数に変換する、という意志表明。
+        // (int) は型変換の命令。直後の (price * tax) は「計算してから変換する」ためにカッコでまとめている。
         int result = (int) (price * tax);
         System.out.println("消費税: " + result);
 
         // -------------------------
         // 6. 「余り」の計算 (%)
         // -------------------------
+        // % は「余り（あまり）」を計算します。
+        // 計算過程: 10 ÷ 3 = 3 余り 1 → % の結果は「余りの 1」
+        // 使い道: n % 2 == 0 で「偶数かどうか」を判定できます（第03章の if 文で登場します）。
         System.out.println("10 ÷ 3 の余りは: " + (10 % 3)); // 1が表示される
-
-        // -------------------------
-        // 7. var キーワード（Java 10以降の型推論）
-        // -------------------------
-        // 右辺から型が明らかなときは、左辺の型名を var に省略できます。
-        // コンパイラが「これは String だ」「これは int だ」と自動で推論します。
-        var text = "Java is fun"; // コンパイラが String と判断する
-        var count = 42;           // コンパイラが int と判断する
-        var pi2 = 3.14;           // コンパイラが double と判断する
-
-        System.out.println("var text  の型: " + ((Object) text).getClass().getSimpleName());
-        System.out.println("var count の型: " + ((Object) count).getClass().getSimpleName());
-        System.out.println("var pi2   の型: " + ((Object) pi2).getClass().getSimpleName());
-        // 注意: var はメソッド内のローカル変数にしか使えません（フィールドには使えない）。
-        // また、宣言時に右辺がないと型を推論できないため、
-        // 「var x;」のように初期値なしで書くとコンパイルエラーになります。
-
-        // -------------------------
-        // 8. 文字列結合の罠と StringBuilder
-        // -------------------------
-        // ========== Before: ループ内で += を使う問題のあるコード ==========
-        // String は「不変（イミュータブル）」なオブジェクトです。
-        // += で文字列を繋ぐたびに、裏側では「新しい String オブジェクト」が毎回生成されています。
-        // 少量なら問題になりませんが、繰り返し回数が増えるとメモリと時間を大量に消費します。
-        String resultBefore = "";
-        long startBefore = System.nanoTime(); // 計測開始
-        for (int i = 0; i < 10_000; i++) {
-            resultBefore += i; // 毎回新しい String が生まれる！
-        }
-        long elapsedBefore = System.nanoTime() - startBefore;
-        System.out.println("Before（+=）: " + elapsedBefore + " ns, 文字数=" + resultBefore.length());
-
-        // ========== After: StringBuilder を使う改善したコード ==========
-        // StringBuilder は「変更可能な文字列バッファ」です。
-        // append() で文字を追加しても新しいオブジェクトは生まれず、同じバッファを使い回します。
-        // 最後に toString() で String に変換します。
-        StringBuilder sb = new StringBuilder();
-        long startAfter = System.nanoTime(); // 計測開始
-        for (int i = 0; i < 10_000; i++) {
-            sb.append(i); // バッファに追記するだけ。オブジェクト生成なし
-        }
-        String resultAfter = sb.toString(); // 最後に一度だけ String に変換
-        long elapsedAfter = System.nanoTime() - startAfter;
-        System.out.println("After（StringBuilder）: " + elapsedAfter + " ns, 文字数=" + resultAfter.length());
-        // 実行してみると Before より After の方が大幅に速いことが確認できます。
-        // ※ StringBuilder の詳細は第07章で改めて学びます。
     }
 }

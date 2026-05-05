@@ -4,6 +4,16 @@
  * 3つの問題を抱える。staticが適切な場所（純粋な計算）と不適切な場所（状態を持つ処理）の
  * 境界線を知ることが、保守しやすいコードへの第一歩だ。
  * アノテーションの体験では @Override の有無が「誤字バグ」をどう防ぐかを実際に確認する。
+ *
+ * 「神クラス（God Class）」とは: あらゆる処理を1つのクラスに詰め込んだ肥大化した設計のことです。
+ * 「神のように何でも知っている」クラスという皮肉を込めた呼び方で、
+ * 現場では「避けるべきアンチパターン（悪い書き方の見本）」として知られています。
+ *
+ * 【第08章・第12章への伏線】
+ * MathHelper のような「状態を持たず、同じ入力に対して常に同じ結果を返す」メソッドを
+ * 純粋関数（pure function）という。
+ * 第08章では純粋関数の設計（イミュータブル設計）を、
+ * 第12章では「純粋関数はスレッドセーフ」であることを学ぶ。
  */
 package com.example.oop_and_type_system;
 
@@ -21,7 +31,7 @@ public class StaticAndAnnotation {
 
         // 問題2: このメソッドはカウントを副作用として変更する
         // 「何回呼ばれたか」という状態がメソッドに隠れている
-        static String formatMessage(String text) {
+        public static String formatMessage(String text) {
             processCount++; // 呼ぶたびにクラス変数が変わる（状態の混入）
             return "[" + processCount + "] " + text;
         }
@@ -29,7 +39,7 @@ public class StaticAndAnnotation {
         // 問題3: テストしにくい
         // formatMessage() が何番を返すかは「何回呼ばれたか」に依存する
         // テストを独立して実行できない（前のテストの影響を受ける）
-        static void resetCount() {
+        public static void resetCount() {
             processCount = 0; // リセットが必要になる → 設計の欠陥
         }
     }
@@ -43,12 +53,12 @@ public class StaticAndAnnotation {
         private int processCount = 0;
 
         // インスタンスメソッドなので、同じクラスの別インスタンスに影響しない
-        String formatMessage(String text) {
+        public String formatMessage(String text) {
             processCount++;
             return "[" + processCount + "] " + text;
         }
 
-        int getProcessCount() {
+        public int getProcessCount() {
             return processCount;
         }
     }
@@ -99,6 +109,7 @@ public class StaticAndAnnotation {
     // ---------------------------------------------------------
 
     // 正しい使い方: 抽象メソッドが1つなので @FunctionalInterface が付けられる
+    // [Java 7 不可] @FunctionalInterface は Java 8 以降のアノテーション
     @FunctionalInterface
     interface SingleMethod {
         void doSomething();
@@ -137,8 +148,8 @@ public class StaticAndAnnotation {
         System.out.println();
         System.out.println("=== After: インスタンスごとに独立した状態 ===");
 
-        var utilA = new AppUtil(); // インスタンスAは独自のカウントを持つ
-        var utilB = new AppUtil(); // インスタンスBは別のカウントを持つ
+        AppUtil utilA = new AppUtil(); // インスタンスAは独自のカウントを持つ
+        AppUtil utilB = new AppUtil(); // インスタンスBは別のカウントを持つ
 
         System.out.println(utilA.formatMessage("処理A-1")); // [1] 処理A-1
         System.out.println(utilA.formatMessage("処理A-2")); // [2] 処理A-2
@@ -163,8 +174,8 @@ public class StaticAndAnnotation {
         System.out.println();
         System.out.println("=== @Override アノテーションの体験 ===");
 
-        var dogWithout = new DogWithoutAnnotation();
-        var dogWith    = new DogWithAnnotation();
+        DogWithoutAnnotation dogWithout = new DogWithoutAnnotation();
+        DogWithAnnotation dogWith       = new DogWithAnnotation();
 
         // toString() を呼んでいる（System.out.println は内部で toString() を呼ぶ）
         System.out.println("@Override なし: " + dogWithout);
@@ -188,6 +199,7 @@ public class StaticAndAnnotation {
         System.out.println("=== @FunctionalInterface アノテーションの体験 ===");
 
         // SingleMethod はラムダ式で実装できる（抽象メソッドが1つなので）
+        // [Java 7 不可] ラムダ式は Java 8 以降
         SingleMethod action = () -> System.out.println("SingleMethod をラムダで実装！");
         action.doSomething();
 

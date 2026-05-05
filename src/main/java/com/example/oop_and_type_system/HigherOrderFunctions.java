@@ -20,9 +20,9 @@ public class HigherOrderFunctions {
     // ---------------------------------------------------------
 
     // 「名前に 'A' が含まれるものだけ残す」専用メソッド
-    static List<String> filterByContainsA(List<String> list) {
-        var result = new ArrayList<String>();
-        for (var s : list) {
+    private static List<String> filterByContainsA(List<String> list) {
+        ArrayList<String> result = new ArrayList<>();
+        for (String s : list) {
             // ここの条件だけが他のメソッドと違う
             if (s.contains("A") || s.contains("a")) {
                 result.add(s);
@@ -33,9 +33,9 @@ public class HigherOrderFunctions {
 
     // 「4文字以上の名前だけ残す」専用メソッド
     // → filterByContainsA とループ構造がまったく同じ！ 違いは if の条件だけ
-    static List<String> filterByLengthAtLeast4(List<String> list) {
-        var result = new ArrayList<String>();
-        for (var s : list) {
+    private static List<String> filterByLengthAtLeast4(List<String> list) {
+        ArrayList<String> result = new ArrayList<>();
+        for (String s : list) {
             // ここの条件だけが違う（コードの重複が増えていく）
             if (s.length() >= 4) {
                 result.add(s);
@@ -50,9 +50,10 @@ public class HigherOrderFunctions {
 
     // Predicate<T> を引数に受け取ることで、条件を外から「差し込める」
     // これが「高階関数」—関数を引数として受け取る関数のこと
-    static <T> List<T> filter(List<T> list, Predicate<T> condition) {
-        var result = new ArrayList<T>();
-        for (var item : list) {
+    // [Java 7 不可] Predicate<T> は Java 8 以降。Java 7 では独自インターフェースを定義して代替する
+    private static <T> List<T> filter(List<T> list, Predicate<T> condition) {
+        ArrayList<T> result = new ArrayList<>();
+        for (T item : list) {
             // condition.test() で渡されたラムダ式を実行する
             if (condition.test(item)) {
                 result.add(item);
@@ -67,24 +68,25 @@ public class HigherOrderFunctions {
 
     // 税率を受け取り、「税込み金額を計算する関数」を返す
     // 返り値が Function<Integer, Integer>（整数→整数の関数）であることに注目
-    static Function<Integer, Integer> taxCalculator(double rate) {
+    private static Function<Integer, Integer> taxCalculator(double rate) {
         // ラムダ式をそのまま return できる
         return price -> (int) (price * (1 + rate));
     }
 
     public static void main(String[] args) {
 
-        var names = List.of("Alice", "Bob", "Charlie", "Dave", "Anna", "Ed");
+        // [Java 7 不可] List.of() は Java 9 以降
+        List<String> names = List.of("Alice", "Bob", "Charlie", "Dave", "Anna", "Ed");
 
         // ---------------------------------------------------------
         // Before: 専用メソッドを呼ぶ（メソッドが増殖する問題）
         // ---------------------------------------------------------
         System.out.println("=== Before: 専用メソッドを呼ぶ ===");
 
-        var withA = filterByContainsA(names);
+        List<String> withA = filterByContainsA(names);
         System.out.println("'a'を含む名前: " + withA);
 
-        var longNames = filterByLengthAtLeast4(names);
+        List<String> longNames = filterByLengthAtLeast4(names);
         System.out.println("4文字以上の名前: " + longNames);
 
         // 「3文字以下の名前が欲しい」という新しい条件が来たら
@@ -97,20 +99,21 @@ public class HigherOrderFunctions {
         System.out.println("=== After: 汎用 filter() にラムダを渡す ===");
 
         // 'a' を含む名前だけ絞り込む（条件はラムダで渡す）
-        var withA2 = filter(names, s -> s.contains("A") || s.contains("a"));
+        List<String> withA2 = filter(names, s -> s.contains("A") || s.contains("a"));
         System.out.println("'a'を含む名前: " + withA2);
 
         // 4文字以上の名前だけ絞り込む（条件だけが違う、メソッドは同じ）
-        var longNames2 = filter(names, s -> s.length() >= 4);
+        List<String> longNames2 = filter(names, s -> s.length() >= 4);
         System.out.println("4文字以上の名前: " + longNames2);
 
         // 3文字以下の名前も、追加メソッド不要で対応できる
-        var shortNames = filter(names, s -> s.length() <= 3);
+        List<String> shortNames = filter(names, s -> s.length() <= 3);
         System.out.println("3文字以下の名前: " + shortNames);
 
         // 整数のリストにも同じ filter() が使える（ジェネリクスのおかげ）
-        var numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        var evens = filter(numbers, n -> n % 2 == 0);
+        // [Java 7 不可] List.of() は Java 9 以降
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> evens = filter(numbers, n -> n % 2 == 0);
         System.out.println("偶数だけ: " + evens);
 
         // ---------------------------------------------------------
@@ -120,9 +123,9 @@ public class HigherOrderFunctions {
         System.out.println("=== 戻り値が関数: taxCalculator ===");
 
         // 10% 税率の計算関数を生成する
-        var tax10 = taxCalculator(0.10);
+        Function<Integer, Integer> tax10 = taxCalculator(0.10);
         // 8% 税率（軽減税率）の計算関数を生成する
-        var tax8  = taxCalculator(0.08);
+        Function<Integer, Integer> tax8  = taxCalculator(0.08);
 
         int priceA = 1000;
         int priceB = 500;
@@ -142,7 +145,8 @@ public class HigherOrderFunctions {
         // 第08章で学ぶ stream.filter(predicate).map(function).forEach(consumer) の正体です。
         // ここで作った「条件をラムダで渡す」パターンは Stream API そのものの設計思想だ。
         // 以下は Java 標準の Stream API を使った同等の処理:
-        var result = names.stream()
+        // [Java 7 不可] Stream API は Java 8 以降。toList() は Java 16 以降
+        List<String> result = names.stream()
                           .filter(s -> s.length() >= 4)    // 高階関数: Predicate を受け取る
                           .map(String::toUpperCase)         // 高階関数: Function を受け取る
                           .toList();
