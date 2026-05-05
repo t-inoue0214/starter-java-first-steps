@@ -1,3 +1,5 @@
+package com.example.practical_java;
+
 import java.util.Random;
 import java.util.Scanner;
 

@@ -64,7 +64,7 @@
     - 左下のステータスバーなどが落ち着くまで少し待ちましょう。
 
 1. **学習スタート！**
-    - 左側のファイル一覧から `01_introduction` フォルダを開きます。
+    - 左側のファイル一覧から `src/main/java/com/example/introduction` フォルダを開きます。
     - `README.md` をクリックして開き、解説を読みながら進めてください。
     - `README.md` を右クリックして「プレビューを開く (Open Preview)」を選ぶと読みやすくなります。
 
@@ -74,13 +74,45 @@
 
 Javaの「書き方」だけでなく、「なぜそう書くのか？」という仕組みや、プログラミングの楽しさを重視しています。
 
+新卒プログラマが中級プログラマへステップアップするための全12章構成です。
+
+### 超入門編（第01〜05章）
+
 | 章 | タイトル | 学ぶ内容 |
 | :--- | :--- | :--- |
-| **01** | **[Javaに触れてみよう](./01_introduction/)** | Hello World, JShell, 実行方法 |
-| **02** | **[データと型](./02_variables_and_types/)** | 変数, プリミティブ型, キャストの罠 |
-| **03** | **[プログラムの流れを作る](./03_control_flow/)** | if文, for文, 配列, FizzBuzz |
-| **04** | **[クラスとオブジェクト](./04_class_and_objects/)** | クラス設計, フィールド, メソッド, new |
-| **05** | **[便利な道具箱とミニゲーム](./05_practical_java/)** | List, Map, Scanner, 数当てゲーム作成 |
+| **01** | **[Javaに触れてみよう](./src/main/java/com/example/introduction/)** | Hello World, JShell, 実行方法 |
+| **02** | **[データと型](./src/main/java/com/example/variables_and_types/)** | 変数, プリミティブ型, キャストの罠 |
+| **03** | **[プログラムの流れを作る](./src/main/java/com/example/control_flow/)** | if文, for文, 配列, FizzBuzz |
+| **04** | **[クラスとオブジェクト](./src/main/java/com/example/class_and_objects/)** | クラス設計, フィールド, メソッド, new |
+| **05** | **[便利な道具箱とミニゲーム](./src/main/java/com/example/practical_java/)** | List, Map, Scanner, 数当てゲーム作成 |
+
+### 基礎応用編（第06〜08章）
+
+> 基本文法は理解できた方が対象です。「なぜこの書き方をするのか」という現場視点を身につけます。
+
+| 章 | タイトル | 学ぶ内容 |
+| :--- | :--- | :--- |
+| **06** | **[OOP・型システム](./src/main/java/com/example/oop_and_type_system/)** | ラムダ式, 関数型インターフェース, Enum, アノテーション, リフレクション |
+| **07** | **[データ構造を使いこなす](./src/main/java/com/example/collections_deep/)** | 配列の限界, Comparator, HashMap vs TreeMap vs LinkedHashMap, LRUキャッシュ自作 |
+| **08** | **[モダンAPIと堅牢なコーディング](./src/main/java/com/example/modern_api/)** | Stream API, Optional, java.time, 例外処理, try-with-resources |
+
+### 実践編（第09〜11章）
+
+> 外部リソース（ファイル・DB・スレッド）を扱います。現場で必ず直面する課題を体験します。
+
+| 章 | タイトル | 学ぶ内容 |
+| :--- | :--- | :--- |
+| **09** | **[I/OとWebの基礎](./src/main/java/com/example/io_and_network/)** | CSV/JSON/XML読み書き, HTTPサーバースクラッチ開発, リファクタリング体験 |
+| **10** | **[データベースアクセス（JDBC）](./src/main/java/com/example/database_jdbc/)** | JDBC, CRUD操作, SQLインジェクション防止 |
+| **11** | **[並行処理・非同期処理の基礎](./src/main/java/com/example/concurrency/)** | Thread, 競合状態, デッドロック, synchronized, Future, CompletableFuture |
+
+### 設計編（第12章）
+
+> 全章の知識を統合します。「なぜその設計にするのか」を徹底的に問います。
+
+| 章 | タイトル | 学ぶ内容 |
+| :--- | :--- | :--- |
+| **12** | **[設計とアーキテクチャ](./src/main/java/com/example/architecture/)** | 疎結合, デザインパターン, クリーンアーキテクチャ, AOP, MVC/CQRS |
 
 ---
 

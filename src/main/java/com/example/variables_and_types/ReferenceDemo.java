@@ -1,3 +1,5 @@
+package com.example.variables_and_types;
+
 public class ReferenceDemo {
     public static void main(String[] args) {
         // -------------------------
@@ -5,7 +7,7 @@ public class ReferenceDemo {
         // -------------------------
         // データそのものが入っています。小文字で始まります (int, double, boolean)。
         char character = 'a';
-        
+
         // -------------------------
         // 【参照型】
         // -------------------------
@@ -19,10 +21,10 @@ public class ReferenceDemo {
         // 参照型だけの特徴：データに対して「命令」ができる！
         // 文字数を数える命令
         System.out.println("文字数: " + message.length());
-        
+
         // 大文字に変換する命令
         System.out.println("大文字: " + message.toUpperCase());
-        
+
         // プリミティブ型でこれをやろうとするとエラーになります
         // character.length(); // ← これはできません
     }

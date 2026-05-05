@@ -1,3 +1,5 @@
+package com.example.practical_java;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

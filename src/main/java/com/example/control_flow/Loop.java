@@ -1,3 +1,5 @@
+package com.example.control_flow;
+
 public class Loop {
     public static void main(String[] args) {
         System.out.println("--- 1. 配列の違い ---");

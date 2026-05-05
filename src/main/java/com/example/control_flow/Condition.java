@@ -1,3 +1,5 @@
+package com.example.control_flow;
+
 public class Condition {
     public static void main(String[] args) {
         int score = 85;

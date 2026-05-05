@@ -1,3 +1,5 @@
+package com.example.variables_and_types;
+
 public class Calc {
     public static void main(String[] args) {
         // -------------------------
