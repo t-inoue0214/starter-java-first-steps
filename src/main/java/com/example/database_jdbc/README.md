@@ -258,5 +258,5 @@ java -cp "out/:lib/h2.jar" com.example.database_jdbc.TransactionDemo
 
 ---
 
-| [← 第10章: I/OとWebの基礎](../io_and_network/README.md) | [全章目次](../../../../../../README.md) | 第12章: 並行処理・非同期処理の基礎（準備中） |
+| [← 第10章: I/OとWebの基礎](../io_and_network/README.md) | [全章目次](../../../../../../README.md) | [第12章: 並行処理・非同期処理の基礎 →](../concurrency/README.md) |
 | :--- | :---: | ---: |
