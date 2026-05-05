@@ -21,6 +21,7 @@
 処理レイヤーが外に出るほど、アクセスにかかる時間は桁違いに増える。
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 flowchart LR
     A["CPU / RAM\n数ナノ秒 (ns)"]
     B["ファイル I/O\n数百マイクロ秒〜数ミリ秒 (ms)\n※ SSD。HDD はさらに遅い"]

@@ -21,6 +21,7 @@
 ## HTTP 通信の全体像
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 sequenceDiagram
     participant App as アプリケーション
     participant Req as HttpRequest
@@ -213,6 +214,7 @@ for (int i = 0; i < 100; i++) {
 #### コネクションプールの仕組み
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 flowchart LR
     A[アプリ] -->|リクエスト| B[HttpClient\nコネクションプール]
     B -->|接続1回目: TCPハンドシェイク（接続確立）| C[httpbin.org]
@@ -255,6 +257,7 @@ java -cp out/ com.example.http_client.ConnectionPoolDemo
 ETag（Entity Tag）とは「このリソースのバージョン識別子」だ。ファイルのハッシュ値や更新日時をもとにサーバーが生成する。クライアントは次のリクエスト時に `If-None-Match` ヘッダーで ETag を送り返す。サーバーは「内容が変わっていない」と判断したとき、ボディを送らずに `304 Not Modified` だけを返す。
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 sequenceDiagram
     participant C as クライアント
     participant S as サーバー

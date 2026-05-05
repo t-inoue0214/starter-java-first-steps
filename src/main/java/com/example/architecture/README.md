@@ -1,8 +1,84 @@
 # 第14章：設計とアーキテクチャ
 
-> この章は**最終章**だ。第01章から積み上げてきたすべての知識——クラス設計・OOP・コレクション・I/O・JDBC・並行処理・HTTPクライアント——を「どう組み合わせるか」という設計の視点で統合する。
+> この章のゴールは「**第15章のクリーンアーキテクチャを正しく理解するための前提を作ること**」だ。
 >
-> テーマは「なぜその設計にするのか」だ。他章では抽象化・設計パターンを控えめにしてきたが、この章ではそれらを積極的に扱う。
+> アーキテクチャには歴史がある。どんな課題を解決するために生まれ、どう進化してきたかを先に知ることで、Clean Architecture の設計判断が「なぜそうなっているのか」まで理解できるようになる。この章ではその進化の流れを学び、Onion Architecture を実装する。
+
+---
+
+## アーキテクチャの進化史
+
+ミクロアーキテクチャ（1クラス〜1アプリ規模の設計）の世界では、長年の試行錯誤から4つの主要な考え方が生まれた。
+
+> マイクロサービスアーキテクチャは同じアーキテクチャだが、マクロアーキテクチャに分類される
+
+### 1. Layered Architecture（レイヤードアーキテクチャ）
+
+最もシンプルで広く普及した構造。UI → Business Logic → Data Access の3〜4層を縦に積む。
+
+```mermaid
+%%{init:{'theme':'dark'}}%%
+flowchart TB
+    UI["UI 層（プレゼンテーション）"]
+    BL["Business Logic 層（アプリケーション）"]
+    DA["Data Access 層（インフラ）"]
+    DB[("DB")]
+
+    UI --> BL
+    BL --> DA
+    DA --> DB
+```
+
+**課題:** 上位層が下位層に依存するため「DB を変えると Business Logic まで修正が波及する」問題が起きやすい。
+
+---
+
+### 2. Hexagonal Architecture（六角形アーキテクチャ / Ports & Adapters）
+
+Alistair Cockburn が 2005 年に提唱。ビジネスロジックを中心に置き、UI と DB をともに「外の世界」として同等に扱う。
+
+外界との接点を **Port（インターフェース）+ Adapter（実装）** で隔離する。
+
+```mermaid
+%%{init:{'theme':'dark'}}%%
+flowchart LR
+    subgraph Outside_Left["外界（入力側）"]
+        UI["UI / CLI"]
+        TEST["テストコード"]
+    end
+
+    subgraph Core["ビジネスロジック（核心）"]
+        PIN["Input Port\n(interface)"]
+        LOGIC["ビジネスロジック"]
+        POUT["Output Port\n(interface)"]
+    end
+
+    subgraph Outside_Right["外界（出力側）"]
+        DB["DB Adapter"]
+        EMAIL["Email Adapter"]
+    end
+
+    UI -->|呼ぶ| PIN
+    TEST -->|呼ぶ| PIN
+    PIN --> LOGIC
+    LOGIC --> POUT
+    POUT -->|実装| DB
+    POUT -->|実装| EMAIL
+```
+
+**改善点:** DB と UI をともに「差し替え可能なアダプター」として扱えるようになった。ビジネスロジックが外部技術に依存しない。
+
+---
+
+### 3. Onion Architecture
+
+Jeff Palermo が 2008 年に提唱。Hexagonal の思想を「同心円状の層」で表現し、依存の方向を外→内の一方向に統一した。**← この章で実装する**
+
+---
+
+### 4. Clean Architecture
+
+Robert C. Martin（Uncle Bob）が 2012 年に提唱。Onion と同じ思想を「Input Port / Output Boundary / Use Case」という概念で精緻化した。Pull 型（戻り値でデータを取る）から Push 型（Output Boundary を呼ぶ）へとデータの流れが変わる。**← 第15章で実装する**
 
 ---
 
@@ -16,11 +92,16 @@
 
 **この章でこの3つの問いにすべて答える。**
 
+**Onion Architecture を実装してその限界を体感し、第15章へ進もう。**
+
 ---
 
-## アーキテクチャの全体像
+## Onion Architecture の全体像
+
+以下が、この章で実装する Onion Architecture の構造だ。
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 flowchart LR
     subgraph Presentation["Presentation 層<br>（どう見せるか）"]
         PP[ProductPresenter]
@@ -44,11 +125,6 @@ flowchart LR
     PS --> P
     IMPR -->|implements| PR
     IMPR --> P
-
-    style Domain fill:gray,stroke:#f9a825
-    style Application fill:gray,stroke:#43a047
-    style Presentation fill:gray,stroke:#1e88e5
-    style Infrastructure fill:gray,stroke:#e91e63
 ```
 
 > **依存の向き:** 矢印はすべて Domain（中心）を向いている。Domain 層は何にも依存せず、最も安定した層だ。
@@ -211,6 +287,7 @@ public class Main {
 ## 依存逆転の原則（DIP）を図で理解する
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 sequenceDiagram
     participant Main
     participant Presenter as ProductPresenter
@@ -232,6 +309,7 @@ sequenceDiagram
 ```
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 classDiagram
     class ProductRepository {
         <<interface>>

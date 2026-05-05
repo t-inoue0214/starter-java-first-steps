@@ -21,6 +21,7 @@
 ## CPU・スレッド・仮想スレッドの関係
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 flowchart TD
     subgraph OS["OS（オペレーティングシステム）"]
         subgraph CPU["CPU（物理コア × N）"]
@@ -156,6 +157,7 @@ Thread-2: lockB を取得 → lockA を待つ（ずっと待ち続ける）
 #### デッドロックの発生状況（シーケンス図）
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 sequenceDiagram
     participant T1 as Thread-1
     participant LA as lockA
@@ -210,6 +212,7 @@ for (int i = 0; i < 1000; i++) {
 #### スレッドプール（ExecutorService）の構造
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 flowchart LR
     subgraph Pool["スレッドプール（固定3本）"]
         W1["Worker 1"]

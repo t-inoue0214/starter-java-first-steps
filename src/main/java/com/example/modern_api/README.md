@@ -21,6 +21,7 @@
 第06章で学んだ「3つのパラダイム」を、今章ではコードとして体験する。
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 flowchart LR
     A["手続き型\n(for + if)"] -->|"同じ処理を"| B["OOP\n(メソッド分割)"]
     B -->|"より簡潔に"| C["関数型\n(Stream API)"]

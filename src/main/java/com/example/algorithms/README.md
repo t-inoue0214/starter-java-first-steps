@@ -21,6 +21,7 @@
 計算量はデータ量 n が増えたとき「処理時間がどう増えるか」を表す指標だ。
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 graph LR
     A["O(1)\nどんなデータ量でも一定\nHashSet.contains()"] --> B["O(log n)\n2倍になるたびに1回増える\n二分探索"]
     B --> C["O(n)\nデータ量に比例\nList.contains()"]

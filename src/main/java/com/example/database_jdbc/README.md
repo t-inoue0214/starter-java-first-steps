@@ -19,6 +19,7 @@
 ## JDBC の全体像
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 sequenceDiagram
     participant App as Java Application
     participant JDBC as JDBC API

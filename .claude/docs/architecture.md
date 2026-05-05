@@ -40,8 +40,8 @@ starter-java-first-steps/
 | 11 | `database_jdbc/` | データベースアクセス（JDBC） | 追加予定 |
 | 12 | `concurrency/` | 並行処理・非同期処理の基礎 | 追加予定 |
 | 13 | `http_client/` | HTTPクライアントと外部API連携 | 追加予定 |
-| 14 | `architecture/` | 設計とアーキテクチャ | 追加予定 |
-| 15 | `clean_architecture/` | クリーンアーキテクチャ | 追加予定 |
+| 14 | `architecture/` | 設計とアーキテクチャ（アーキテクチャ進化史, Big Ball of Mud, Onion Architecture 実装, DIP, DI） | 実装済み |
+| 15 | `clean_architecture/` | クリーンアーキテクチャ | 実装済み |
 
 ## 章のレベル区分
 
