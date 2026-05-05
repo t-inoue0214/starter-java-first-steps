@@ -207,5 +207,5 @@ java -cp out/ com.example.algorithms.StandardLibrarySort
 
 ---
 
-| [← 第08章: モダンAPIと堅牢なコーディング](../modern_api/README.md) | [全章目次](../../../../../../README.md) | 第10章: I/OとWebの基礎（準備中） |
+| [← 第08章: モダンAPIと堅牢なコーディング](../modern_api/README.md) | [全章目次](../../../../../../README.md) | [第10章: I/OとWebの基礎 →](../io_and_network/README.md) |
 | :--- | :---: | ---: |
