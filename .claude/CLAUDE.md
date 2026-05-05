@@ -39,6 +39,6 @@
 | ファイル | 内容 |
 | --- | --- |
 | `.claude/docs/architecture.md` | 全体設計・コーディング規約・Java SE 7 ルール・実行方法 |
-| `.claude/docs/plans/chapter-XX-plan.md` | 各章の実装計画（第08〜14章） |
+| `.claude/docs/plans/chapter-XX-plan.md` | 各章の実装計画 |
 
 @.claude/docs/architecture.md
