@@ -15,7 +15,7 @@ starter-java-first-steps/
     ├── collections_deep/      # 第07章: データ構造を使いこなす
     ├── modern_api/            # 第08章: モダンAPIと堅牢なコーディング（追加予定）
     ├── algorithms/            # 第09章: アルゴリズムとソート（追加予定）
-    ├── io_and_network/        # 第10章: I/OとWebの基礎（追加予定）
+    ├── io_and_network/        # 第10章: I/OとWebの基礎（ファイルI/O, CSV, config.properties, XML(JAXP), java.util.logging, HTTPサーバー）
     ├── database_jdbc/         # 第11章: データベースアクセス JDBC（追加予定）
     ├── concurrency/           # 第12章: 並行処理・非同期処理の基礎（追加予定）
     ├── http_client/           # 第13章: HTTPクライアントと外部API連携（追加予定）
@@ -36,7 +36,7 @@ starter-java-first-steps/
 | 07 | `collections_deep/` | データ構造を使いこなす | 実装済み |
 | 08 | `modern_api/` | モダンAPIと堅牢なコーディング | 追加予定 |
 | 09 | `algorithms/` | アルゴリズムとソート | 追加予定 |
-| 10 | `io_and_network/` | I/OとWebの基礎 | 追加予定 |
+| 10 | `io_and_network/` | I/OとWebの基礎（ファイルI/O, CSV, config.properties, XML, logging, HTTPサーバー） | 実装済み |
 | 11 | `database_jdbc/` | データベースアクセス（JDBC） | 追加予定 |
 | 12 | `concurrency/` | 並行処理・非同期処理の基礎 | 追加予定 |
 | 13 | `http_client/` | HTTPクライアントと外部API連携 | 追加予定 |

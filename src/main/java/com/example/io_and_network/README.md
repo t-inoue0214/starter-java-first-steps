@@ -44,6 +44,9 @@ flowchart LR
 | `CsvHandler.java` | CSV の読み書き | なぜ split(",") だけでは実運用に耐えないのか |
 | `HttpServerBasics.java` | HTTP サーバー（Before） | フレームワークが隠している仕組みを体験する |
 | `HttpServerRefactored.java` | HTTP サーバー（After） | なぜ Handler / Service に分けると保守しやすいのか |
+| `PropertiesConfig.java` | 設定ファイル（.properties） | なぜ設定をコードに書くと変更のたびに再コンパイルが必要になるのか |
+| `XmlProcessing.java` | XML 生成・解析・スキーマ検証 | なぜ CSV より XML が「構造の強制」に向いているのか |
+| `LoggingBasics.java` | java.util.logging | なぜ System.out.println() はログの代わりにならないのか |
 
 ---
 
@@ -147,6 +150,158 @@ java -cp out/ com.example.io_and_network.HttpServerBasics
 
 ---
 
+### 5. PropertiesConfig.java — 設定をコードから分離する
+
+**Before（ハードコード）:**
+
+```java
+// [アンチパターン] 接続先・ポート・タイムアウトをコードに直書きする
+String host      = "localhost";
+int    port      = 5432;
+int    timeoutMs = 3000;
+// → 本番環境に合わせて変えるたびに再コンパイルが必要
+```
+
+**After（.properties ファイルから読み込む）:**
+
+```java
+Properties props = new Properties();
+// [Java 7 不可] new FileReader(path, charset) は Java 11 以降
+try (FileReader reader = new FileReader("app.properties", StandardCharsets.UTF_8)) {
+    props.load(reader);  // key=value を一括読み込み
+}
+String host    = props.getProperty("db.host");
+int    port    = Integer.parseInt(props.getProperty("db.port", "5432")); // デフォルト値付き
+String missing = props.getProperty("db.password", "(未設定)");           // キーがなければデフォルト値
+```
+
+| メソッド | 説明 |
+| --- | --- |
+| `load(Reader)` | .properties ファイルを読み込む |
+| `getProperty(key)` | 値を取得する（なければ null） |
+| `getProperty(key, default)` | デフォルト値付き取得 |
+| `setProperty(key, value)` | 値をセットする |
+| `store(Writer, comment)` | ファイルに書き出す |
+
+> **[現場での管理]** 開発者が `app.properties.example`（ダミー値入り）をリポジトリで管理し、本番チームや CI/CD が実際の値を記入した `app.properties` を作成する。機密情報が含まれるため `.gitignore` に追加する。
+
+```bash
+javac -d out/ src/main/java/com/example/io_and_network/PropertiesConfig.java
+java -cp out/ com.example.io_and_network.PropertiesConfig
+```
+
+---
+
+### 6. XmlProcessing.java — XML の生成・解析・スキーマ検証
+
+**XML 生成（DocumentBuilder → Document → Transformer）:**
+
+```java
+// Step1: DocumentBuilder で空のDocumentを作成する
+DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+Document document = factory.newDocumentBuilder().newDocument();
+
+// Step2: 要素ツリーを構築する
+Element root = document.createElement("products");
+document.appendChild(root);
+Element product = document.createElement("product");
+product.setAttribute("id", "1");                        // 属性を設定する
+product.appendChild(document.createElement("name"));   // 子要素を追加する
+root.appendChild(product);
+
+// Step3: Transformer でファイルに書き出す（OutputKeys.INDENTで整形）
+Transformer transformer = TransformerFactory.newInstance().newTransformer();
+transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+transformer.transform(new DOMSource(document), new StreamResult(new File("products.xml")));
+```
+
+**XML 解析（DOM: parse → NodeList → テキスト取得）:**
+
+```java
+Document doc = factory.newDocumentBuilder().parse(new File("products.xml"));
+NodeList products = doc.getElementsByTagName("product");
+for (int i = 0; i < products.getLength(); i++) {
+    Element p = (Element) products.item(i);
+    String id    = p.getAttribute("id");                                   // 属性を取得する
+    String name  = p.getElementsByTagName("name").item(0).getTextContent(); // 子要素のテキストを取得する
+}
+```
+
+**スキーマ検証（XSD）:**
+
+```java
+// SchemaFactory で XSD ファイルを読み込んで Validator を作成する
+SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+Schema schema = sf.newSchema(new File("products.xsd"));
+Validator validator = schema.newValidator();
+validator.validate(new StreamSource(new File("products.xml"))); // 違反があれば SAXException
+```
+
+| 方式 | 特徴 | 向いている場面 |
+| --- | --- | --- |
+| DOM | 全体をメモリに読み込む。扱いやすい | 小〜中規模のXML |
+| SAX | イベント駆動型。メモリ効率が高い | 大規模なXML（数百MB〜） |
+| StAX | プル型でSAXより書きやすい | 大規模XMLを逐次処理 |
+
+```bash
+javac -d out/ src/main/java/com/example/io_and_network/XmlProcessing.java
+java -cp out/ com.example.io_and_network.XmlProcessing
+```
+
+---
+
+### 7. LoggingBasics.java — java.util.logging でログを体系化する
+
+**Before（System.out.println のアンチパターン）:**
+
+```java
+// [アンチパターン] レベル制御もファイル出力も不可能
+System.out.println("[情報] 商品を追加しました: ノートPC");
+System.out.println("[デバッグ] 在庫チェック: 在庫=10");
+// → 本番でデバッグ行を消すには、コードを修正して再コンパイルが必要
+```
+
+**After（java.util.logging）:**
+
+```java
+Logger logger = Logger.getLogger(LoggingBasics.class.getName());
+logger.setUseParentHandlers(false); // ルートロガーへの二重出力を防ぐ
+
+ConsoleHandler ch = new ConsoleHandler();
+ch.setLevel(Level.INFO);            // コンソールには INFO 以上のみ表示する
+
+FileHandler fh = new FileHandler("app.log");
+fh.setLevel(Level.ALL);             // ファイルにはすべてのレベルを記録する
+fh.setFormatter(new SimpleFormatter());
+
+logger.addHandler(ch);
+logger.addHandler(fh);
+logger.setLevel(Level.ALL);
+
+logger.info("商品を追加しました: ノートPC");   // 本番で表示（INFO）
+logger.fine("在庫チェック実行: 在庫=10");       // 本番では非表示（FINE）
+logger.warning("在庫不足: 要求=15, 在庫=10"); // 本番で表示（WARNING）
+logger.severe("バグ: 在庫数が負の値です");      // 本番で表示（SEVERE）
+```
+
+| レベル | 用途 | 本番での可視性 |
+| --- | --- | --- |
+| `SEVERE` | アプリを止めるエラー | 常に表示 |
+| `WARNING` | 回復可能な問題 | 常に表示 |
+| `INFO` | 通常の業務イベント | 表示（現場標準） |
+| `CONFIG` | 設定値の出力 | 任意 |
+| `FINE` | デバッグ詳細 | 非表示（開発のみ） |
+| `FINER` / `FINEST` | 詳細トレース | 非表示 |
+
+> **[logging.properties]** `java -Djava.util.logging.config.file=logging.properties` を使うとコードを変えずにログレベルを変更できる。`PropertiesConfig.java` の「設定の外出し」と同じ考え方だ。
+
+```bash
+javac -d out/ src/main/java/com/example/io_and_network/LoggingBasics.java
+java -cp out/ com.example.io_and_network.LoggingBasics
+```
+
+---
+
 ### 4. HttpServerRefactored.java — Handler / Service / Helper への分割（After）
 
 同じ3つのエンドポイントを、責務ごとにクラスを分割してリファクタリングする。
@@ -177,11 +332,14 @@ java -cp out/ com.example.io_and_network.HttpServerRefactored
 
 ```bash
 # 全ファイルをまとめてコンパイルする
-javac -d out/ src/main/java/com/example/io_and_network/*.java
+javac -d out/ $(find src/main/java/com/example/io_and_network -name "*.java")
 
 # 各ファイルを順番に実行する
 java -cp out/ com.example.io_and_network.FileReadWrite
 java -cp out/ com.example.io_and_network.CsvHandler
+java -cp out/ com.example.io_and_network.PropertiesConfig
+java -cp out/ com.example.io_and_network.XmlProcessing
+java -cp out/ com.example.io_and_network.LoggingBasics
 java -cp out/ com.example.io_and_network.HttpServerBasics
 java -cp out/ com.example.io_and_network.HttpServerRefactored
 ```
@@ -192,6 +350,9 @@ java -cp out/ com.example.io_and_network.HttpServerRefactored
 
 * **ファイルI/Oの遅さ:** CPUやRAMに比べてディスクI/Oは何桁も遅い。`BufferedReader`/`Writer` のバッファリングや `Files.readString()` の一括読み込みで最小限のシステムコール回数にするのが基本だ。
 * **CSV の落とし穴:** `split(",")` は「カンマを含む値」に対応できない。RFC 4180 のクォートルールを守ることが現場では必須だ。JSON / XML も外部ライブラリ（Jackson 等）を使うのが現場標準だ。
+* **設定の外出し:** `java.util.Properties` を使うことで、コードを再コンパイルせずに接続先やタイムアウト値を変更できる。開発・本番で設定が異なる場合に必須の技法だ。
+* **XML の生成・解析・検証:** JAXP（標準ライブラリ）だけで XML を生成（`DocumentBuilder`）・解析（`NodeList`）・スキーマ検証（`Validator`）できる。CSVと違い、「構造の強制」こそXMLの強みだ。
+* **ログの体系化:** `System.out.println()` はログではない。`java.util.logging` はレベルによるフィルタリング・ファイルへの自動書き込み・タイムスタンプ付与を標準ライブラリだけで実現する。
 * **HTTP サーバーの仕組み:** リクエストを受け取り、ルーティングして、レスポンスを返す—これがすべてのWebフレームワークの核心だ。`com.sun.net.httpserver` でその仕組みをゼロから体験した。
 * **責務の分離:** Handler（リクエスト処理）/ Service（ビジネスロジック）/ Helper（共通処理）に分けることで、ルート追加がクラス追加だけで済むようになる。これは第04章・第06章で学んだ「インターフェースと責務分離」の実践だ。
 
@@ -213,6 +374,13 @@ java -cp out/ com.example.io_and_network.HttpServerRefactored
 
 5. `HttpServerBasics.java` の各ハンドラーをユニットテストしようとしたとき、何が問題になりますか？
    `HttpServerRefactored.java` の `TimeService` はなぜテストしやすいか、理由を説明しましょう。
+
+6. `PropertiesConfig.java` で、存在しないキーを `getProperty(key)` で取得するとどうなるか確認しよう。
+   `getProperty(key, defaultValue)` との違いを説明してみよう。
+
+7. `XmlProcessing.java` で、XSD に `minOccurs="1"` で定義された `<name>` 要素を削除した不正なXMLを作り、スキーマ検証してみよう。どんなエラーメッセージが出るか確認しよう。
+
+8. `LoggingBasics.java` の ConsoleHandler のレベルを `Level.FINE` に変更して実行してみよう。どのログ行が追加で表示されるか確認しよう。本番でいつ有用かも考えてみよう。
 
 ---
 
