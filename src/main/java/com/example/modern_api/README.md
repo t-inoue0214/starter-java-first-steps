@@ -302,5 +302,5 @@ java -cp out/ com.example.modern_api.ImmutableDesign
 
 ---
 
-| [← 第07章: データ構造を使いこなす](../collections_deep/README.md) | [全章目次](../../../../../../README.md) | 第09章: アルゴリズムとソート（準備中） |
+| [← 第07章: データ構造を使いこなす](../collections_deep/README.md) | [全章目次](../../../../../../README.md) | [第09章: アルゴリズムとソート →](../algorithms/README.md) |
 | :--- | :---: | ---: |
