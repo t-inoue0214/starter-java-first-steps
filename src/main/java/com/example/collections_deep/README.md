@@ -269,5 +269,5 @@ java -cp out/ com.example.collections_deep.LruCache
 
 ---
 
-| [← 第06章: OOP・型システム](../oop_and_type_system/README.md) | [全章目次](../../../../../../README.md) | 第08章: モダンAPIと堅牢なコーディング（準備中） |
+| [← 第06章: OOP・型システム](../oop_and_type_system/README.md) | [全章目次](../../../../../../README.md) | [第08章: モダンAPIと堅牢なコーディング →](../modern_api/README.md) |
 | :--- | :---: | ---: |
