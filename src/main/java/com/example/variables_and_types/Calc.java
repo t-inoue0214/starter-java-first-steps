@@ -1,3 +1,10 @@
+/**
+ * 【なぜこのコードを学ぶのか】
+ * 型を意識せずにプログラムを書くと「なぜか割り算の答えが整数になる」
+ * 「数字と消費税を掛けたらコンパイルエラーになった」といった落とし穴にはまります。
+ * Javaは型に厳格な言語です。型のルールを体験することで、
+ * エラーを読んで自分で直せる力が身につきます。
+ */
 package com.example.variables_and_types;
 
 public class Calc {
@@ -55,5 +62,51 @@ public class Calc {
         // 6. 「余り」の計算 (%)
         // -------------------------
         System.out.println("10 ÷ 3 の余りは: " + (10 % 3)); // 1が表示される
+
+        // -------------------------
+        // 7. var キーワード（Java 10以降の型推論）
+        // -------------------------
+        // 右辺から型が明らかなときは、左辺の型名を var に省略できます。
+        // コンパイラが「これは String だ」「これは int だ」と自動で推論します。
+        var text = "Java is fun"; // コンパイラが String と判断する
+        var count = 42;           // コンパイラが int と判断する
+        var pi2 = 3.14;           // コンパイラが double と判断する
+
+        System.out.println("var text  の型: " + ((Object) text).getClass().getSimpleName());
+        System.out.println("var count の型: " + ((Object) count).getClass().getSimpleName());
+        System.out.println("var pi2   の型: " + ((Object) pi2).getClass().getSimpleName());
+        // 注意: var はメソッド内のローカル変数にしか使えません（フィールドには使えない）。
+        // また、宣言時に右辺がないと型を推論できないため、
+        // 「var x;」のように初期値なしで書くとコンパイルエラーになります。
+
+        // -------------------------
+        // 8. 文字列結合の罠と StringBuilder
+        // -------------------------
+        // ========== Before: ループ内で += を使う問題のあるコード ==========
+        // String は「不変（イミュータブル）」なオブジェクトです。
+        // += で文字列を繋ぐたびに、裏側では「新しい String オブジェクト」が毎回生成されています。
+        // 少量なら問題になりませんが、繰り返し回数が増えるとメモリと時間を大量に消費します。
+        String resultBefore = "";
+        long startBefore = System.nanoTime(); // 計測開始
+        for (int i = 0; i < 10_000; i++) {
+            resultBefore += i; // 毎回新しい String が生まれる！
+        }
+        long elapsedBefore = System.nanoTime() - startBefore;
+        System.out.println("Before（+=）: " + elapsedBefore + " ns, 文字数=" + resultBefore.length());
+
+        // ========== After: StringBuilder を使う改善したコード ==========
+        // StringBuilder は「変更可能な文字列バッファ」です。
+        // append() で文字を追加しても新しいオブジェクトは生まれず、同じバッファを使い回します。
+        // 最後に toString() で String に変換します。
+        StringBuilder sb = new StringBuilder();
+        long startAfter = System.nanoTime(); // 計測開始
+        for (int i = 0; i < 10_000; i++) {
+            sb.append(i); // バッファに追記するだけ。オブジェクト生成なし
+        }
+        String resultAfter = sb.toString(); // 最後に一度だけ String に変換
+        long elapsedAfter = System.nanoTime() - startAfter;
+        System.out.println("After（StringBuilder）: " + elapsedAfter + " ns, 文字数=" + resultAfter.length());
+        // 実行してみると Before より After の方が大幅に速いことが確認できます。
+        // ※ StringBuilder の詳細は第07章で改めて学びます。
     }
 }

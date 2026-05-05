@@ -1,3 +1,10 @@
+/**
+ * 【なぜこのコードを学ぶのか】
+ * Javaの型は「プリミティブ型」と「参照型」の2種類に分かれており、
+ * この違いを知らないと「なぜ String に .length() が使えて int には使えないのか」
+ * 「なぜ == で比較すると期待通りにならないのか」という混乱が生じます。
+ * 2つの型の構造の違いを体験することで、Javaの型システムの根本が理解できます。
+ */
 package com.example.variables_and_types;
 
 public class ReferenceDemo {
