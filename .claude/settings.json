@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(textlint .claude/docs/plans/chapter-04-plan.md .claude/docs/plans/chapter-06-plan.md .claude/docs/plans/chapter-08-plan.md)",
+      "Bash(markdownlint-cli2 /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-04-plan.md /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-06-plan.md /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-08-plan.md)",
+      "Bash(textlint /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-04-plan.md /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-06-plan.md /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-08-plan.md)",
+      "Bash(textlint /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-04-plan.md)",
+      "Bash(textlint /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-06-plan.md)",
+      "Bash(textlint /workspaces/starter-java-first-steps/.claude/docs/plans/chapter-08-plan.md)",
+      "Bash(npx markdownlint-cli2 *)",
+      "Bash(npx textlint *)",
+      "Bash(javac -d out/ src/main/java/com/example/class_and_objects/Main.java)",
+      "Bash(java -cp out/ com.example.class_and_objects.Main)",
+      "Bash(cp \"src/main/java/com/example/class_and_objects/README.md\" /tmp/README_backup.md)",
+      "Bash(sed 's/作れるはずだ。/作れるはずです。/' \"src/main/java/com/example/class_and_objects/README.md\")",
+      "Bash(javac -d out/ src/main/java/com/example/practical_java/CollectionDemo.java)",
+      "Bash(java -cp out/ com.example.practical_java.CollectionDemo)",
+      "Bash(javac -d out/ src/main/java/com/example/collections_deep/*.java)",
+      "Bash(java -cp out/ com.example.collections_deep.ArrayLimitation)",
+      "Bash(java -cp out/ com.example.collections_deep.ListVsSet)",
+      "Bash(java -cp out/ com.example.collections_deep.MapComparison)",
+      "Bash(java -cp out/ com.example.collections_deep.ComparatorDemo)",
+      "Bash(java -cp out/ com.example.collections_deep.MapIterationPerf)",
+      "Bash(java -cp out/ com.example.collections_deep.LruCache)",
+      "Bash(java -cp out/ com.example.oop_and_type_system.FunctionalInterfaces)",
+      "Bash(java -cp out/ com.example.oop_and_type_system.InterfaceAndPolymorphism)",
+      "Bash(awk '/^## 確認してみよう/{found=1; next} found && /^[0-9]+\\\\./{count++} found && /^## /{if\\(count>0\\){print count; exit}} END{if\\(found && count>0\\) print count}' /workspaces/starter-java-first-steps/src/main/java/com/example/introduction/README.md)",
+      "Bash(awk '/^## 確認してみよう/{found=1; next} found && /^[0-9]+\\\\./{count++} found && /^## /{if\\(count>0\\){print count; exit}} END{if\\(found && count>0\\) print count}' /workspaces/starter-java-first-steps/src/main/java/com/example/variables_and_types/README.md)",
+      "Bash(awk '/^## 確認してみよう/{found=1; next} found && /^[0-9]+\\\\./{count++} found && /^## /{if\\(count>0\\){print count; exit}} END{if\\(found && count>0\\) print count}' /workspaces/starter-java-first-steps/src/main/java/com/example/control_flow/README.md)",
+      "Bash(awk '/^## 確認してみよう/{found=1; next} found && /^[0-9]+\\\\./{count++} found && /^## /{if\\(count>0\\){print count; exit}} END{if\\(found && count>0\\) print count}' /workspaces/starter-java-first-steps/src/main/java/com/example/class_and_objects/README.md)",
+      "Bash(awk '/^## 確認してみよう/{found=1; next} found && /^[0-9]+\\\\./{count++} found && /^## /{if\\(count>0\\){print count; exit}} END{if\\(found && count>0\\) print count}' /workspaces/starter-java-first-steps/src/main/java/com/example/practical_java/README.md)"
+    ],
+    "additionalDirectories": [
+      "/workspaces/starter-java-first-steps/.claude/docs/plans"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; [[ \"$f\" == *.md ]] && { markdownlint-cli2 \"$f\"; textlint \"$f\"; } || true; }"
+          }
+        ]
+      }
+    ]
+  }
+}
