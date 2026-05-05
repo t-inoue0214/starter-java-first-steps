@@ -216,5 +216,5 @@ java -cp out/ com.example.io_and_network.HttpServerRefactored
 
 ---
 
-| [← 第09章: アルゴリズムとソート](../algorithms/README.md) | [全章目次](../../../../../../README.md) | 第11章: データベースアクセス（準備中） |
+| [← 第09章: アルゴリズムとソート](../algorithms/README.md) | [全章目次](../../../../../../README.md) | [第11章: データベースアクセス →](../database_jdbc/README.md) |
 | :--- | :---: | ---: |
