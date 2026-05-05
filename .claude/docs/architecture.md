@@ -19,11 +19,12 @@ starter-java-first-steps/
     ├── database_jdbc/         # 第11章: データベースアクセス JDBC（追加予定）
     ├── concurrency/           # 第12章: 並行処理・非同期処理の基礎（追加予定）
     ├── http_client/           # 第13章: HTTPクライアントと外部API連携（追加予定）
-    ├── architecture/          # 第14章: 設計とアーキテクチャ（追加予定）
-    └── clean_architecture/    # 第15章: クリーンアーキテクチャ（追加予定）
+    ├── safe_coding/           # 第14章: 安全なコーディング（実装済み）
+    ├── architecture/          # 第15章: 設計とアーキテクチャ（実装済み）
+    └── clean_architecture/    # 第16章: クリーンアーキテクチャ（実装済み）
 ```
 
-## 全15章の構成
+## 全16章の構成
 
 | 章 | ディレクトリ | タイトル | 状態 |
 | --- | --- | --- | --- |
@@ -40,8 +41,9 @@ starter-java-first-steps/
 | 11 | `database_jdbc/` | データベースアクセス（JDBC） | 追加予定 |
 | 12 | `concurrency/` | 並行処理・非同期処理の基礎 | 追加予定 |
 | 13 | `http_client/` | HTTPクライアントと外部API連携 | 追加予定 |
-| 14 | `architecture/` | 設計とアーキテクチャ（アーキテクチャ進化史, Big Ball of Mud, Onion Architecture 実装, DIP, DI） | 実装済み |
-| 15 | `clean_architecture/` | クリーンアーキテクチャ | 実装済み |
+| 14 | `safe_coding/` | 安全なコーディング（static 汚染, イミュータブル設計, 型安全性, 入力バリデーション, 複雑条件のメソッド化, クラス責務） | 実装済み |
+| 15 | `architecture/` | 設計とアーキテクチャ（アーキテクチャ進化史, Big Ball of Mud, Onion Architecture 実装, DIP, DI） | 実装済み |
+| 16 | `clean_architecture/` | クリーンアーキテクチャ | 実装済み |
 
 ## 章のレベル区分
 
@@ -50,7 +52,7 @@ starter-java-first-steps/
 | 第01〜05章 | 超入門 | プログラミング経験ゼロから。丁寧な説明・多めのコメント |
 | 第06〜09章 | 基礎応用 | 基礎は理解した新卒向け。OOP・モダンAPI・データ構造・アルゴリズムの深掘り |
 | 第10〜13章 | 実践 | 外部リソース（ファイル・DB・スレッド・HTTP）を扱う現場課題を体験 |
-| 第14〜15章 | 設計 | 全章の知識を統合。Onion Architecture と Clean Architecture を比較しながら「なぜその設計にするか」を問う |
+| 第14〜16章 | 設計 | 全章の知識を統合。Onion Architecture と Clean Architecture を比較しながら「なぜその設計にするか」を問う |
 
 ## 重要概念の担当章
 

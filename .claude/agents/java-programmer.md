@@ -45,7 +45,9 @@ tools: Read, Grep, Glob, Bash, Edit, Write
 | 第11章 | `database_jdbc/` | `com.example.database_jdbc` |
 | 第12章 | `concurrency/` | `com.example.concurrency` |
 | 第13章 | `http_client/` | `com.example.http_client` |
-| 第14章 | `architecture/` | `com.example.architecture` |
+| 第14章 | `safe_coding/` | `com.example.safe_coding` |
+| 第15章 | `architecture/` | `com.example.architecture` |
+| 第16章 | `clean_architecture/` | `com.example.clean_architecture` |
 
 コンパイル・実行は `-d out/` を使い、クラスファイルをパッケージ構造どおりに出力する:
 

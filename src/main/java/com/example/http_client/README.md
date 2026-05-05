@@ -313,5 +313,5 @@ java -cp out/ com.example.http_client.CacheStrategyDemo
 
 ---
 
-| [← 第12章: 並行処理・非同期処理の基礎](../concurrency/README.md) | [全章目次](../../../../../../README.md) | [第14章: 設計とアーキテクチャ →](../architecture/README.md) |
+| [← 第12章: 並行処理・非同期処理の基礎](../concurrency/README.md) | [全章目次](../../../../../../README.md) | [第14章: 安全なコーディング →](../safe_coding/README.md) |
 | :--- | :---: | ---: |

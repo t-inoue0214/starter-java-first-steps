@@ -1,12 +1,12 @@
-# 第15章：クリーンアーキテクチャ
+# 第16章：クリーンアーキテクチャ
 
-> 第14章でアーキテクチャの進化史（Layered → Hexagonal → Onion → Clean）を学び、Onion Architecture を実装した。この章では同じ「商品管理」機能を **Clean Architecture** で実装し直す。同じ機能を別のアーキテクチャで書くことで、思想の違いと使い分けを体験できる。
+> 第15章でアーキテクチャの進化史（Layered → Hexagonal → Onion → Clean）を学び、Onion Architecture を実装した。この章では同じ「商品管理」機能を **Clean Architecture** で実装し直す。同じ機能を別のアーキテクチャで書くことで、思想の違いと使い分けを体験できる。
 
 ---
 
-## この章の問い（第14章から持ち越した疑問）
+## この章の問い（第15章から持ち越した疑問）
 
-第14章で Onion Architecture を学んだとき、こんな疑問を持たなかったか？
+第15章で Onion Architecture を学んだとき、こんな疑問を持たなかったか？
 
 1. **Presenter が Service を呼んでデータを受け取る設計は、Presenter が「何を取るか」を知りすぎていないか？**
 2. **Use Case（ビジネスロジック）をインターフェースとして定義すると、テスト時に差し替えやすくなるのではないか？**
@@ -16,7 +16,7 @@
 
 ---
 
-## Onion Architecture（第14章）vs Clean Architecture（第15章）
+## Onion Architecture（第15章）vs Clean Architecture（第16章）
 
 | 概念 | Onion Architecture | Clean Architecture |
 | --- | --- | --- |
@@ -29,11 +29,11 @@
 ### 最大のポイント: データの流れ方が逆になる
 
 ```java
-// Onion（第14章）: Pull型——Presenter がデータを「取りに行く」
+// Onion（第15章）: Pull型——Presenter がデータを「取りに行く」
 List<Product> products = service.getAllProducts();  // ← 戻り値
 for (Product p : products) { System.out.println(p.name()); }
 
-// Clean（第15章）: Push型——Interactor がデータを「渡す」
+// Clean（第16章）: Push型——Interactor がデータを「渡す」
 interactor.execute();  // ← 内部で presenter.presentProducts(dtos) を呼ぶ
 // Presenter は「呼ばれるのを待つ」だけでよい
 ```
@@ -89,7 +89,7 @@ flowchart LR
 
 | ファイル | 層 | 体験できる Why |
 | --- | --- | --- |
-| `clean/entity/Product.java` | Entity | 第14章と同じ Entity——アーキテクチャが変わっても Entity は変わらない |
+| `clean/entity/Product.java` | Entity | 第15章と同じ Entity——アーキテクチャが変わっても Entity は変わらない |
 | `clean/usecase/AddProductRequest.java` | Use Case | なぜ生の引数ではなく Request DTO を使うのか |
 | `clean/usecase/ProductResponse.java` | Use Case | なぜ Entity をそのまま返さず DTO に変換するのか |
 | `clean/usecase/AddProductUseCase.java` | Use Case | なぜ Use Case をインターフェース（入力ポート）にするのか |
@@ -109,7 +109,7 @@ flowchart LR
 ### Entity 層 — 最内層（どのアーキテクチャでも変わらない）
 
 ```java
-// Product.java: 第14章と完全に同じ Record
+// Product.java: 第15章と完全に同じ Record
 public record Product(int id, String name, int price) {
     public Product {  // コンパクトコンストラクタでバリデーション
         if (name == null || name.isBlank()) throw new IllegalArgumentException("商品名は空にできません");
@@ -201,7 +201,7 @@ ProductController controller = new ProductController(addUseCase, getAllUseCase);
 
 ## データフローの比較
 
-### Onion Architecture（第14章）: Pull型
+### Onion Architecture（第15章）: Pull型
 
 ```mermaid
 %%{init:{'theme':'dark'}}%%
@@ -220,7 +220,7 @@ sequenceDiagram
     note over Presenter,Service: Presenter がデータを「取りに行く」（Pull型）
 ```
 
-### Clean Architecture（第15章）: Push型
+### Clean Architecture（第16章）: Push型
 
 ```mermaid
 %%{init:{'theme':'dark'}}%%
@@ -251,7 +251,7 @@ java -cp out/ com.example.clean_architecture.Main
 
 ---
 
-## 第15章のまとめ
+## 第16章のまとめ
 
 * **入力ポート（Input Port）:** Use Case をインターフェースとして定義することで、Interactor をテスト時に差し替えられる
 * **出力ポート（Output Boundary）:** Interactor が Presenter を呼ぶ「Push型」にすることで、表示方法の変更が Interactor に影響しない
@@ -272,11 +272,11 @@ java -cp out/ com.example.clean_architecture.Main
 
 4. `ProductPresenterPort` に `presentNotFound(int id)` メソッドを追加して、ID 検索ユースケース（`FindProductByIdUseCase`）と対応する Interactor を実装してみよう。
 
-5. 第14章（Onion Architecture）の `ProductService.addProduct()` と第15章（Clean Architecture）の `AddProductInteractor.execute()` を見比べて、「引数の数が5つに増えたとき」どちらが変更しやすいか考えてみよう。
+5. 第15章（Onion Architecture）の `ProductService.addProduct()` と第16章（Clean Architecture）の `AddProductInteractor.execute()` を見比べて、「引数の数が5つに増えたとき」どちらが変更しやすいか考えてみよう。
 
 6. なぜ `GetAllProductsInteractor` は `Product` エンティティをそのまま渡さず `ProductResponse` へ変換するのか。変更への耐性と Entity の純粋性という2つの視点から説明してみよう。
 
 ---
 
-| [← 第14章: 設計とアーキテクチャ](../architecture/README.md) | [全章目次](../../../../../../README.md) | 最終章 |
+| [← 第15章: 設計とアーキテクチャ](../architecture/README.md) | [全章目次](../../../../../../README.md) | 最終章 |
 | :--- | :---: | ---: |
