@@ -1,13 +1,14 @@
 {
     "name": "Java 21 入門講座",
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
-    "features": {
-        "ghcr.io/devcontainers/features/node:2.0.0": {
-            "version": "lts"
-        }
-    },
+    // "build": {
+    //     "dockerfile": "Dockerfile"
+    // },
+    "image": "mcr.microsoft.com/devcontainers/java:1-21-bookworm",
+    // "features": {
+    //     "ghcr.io/devcontainers/features/node:2.0.0": {
+    //         "version": "lts"
+    //     }
+    // },
     "customizations": {
         "vscode": {
             "extensions": [
