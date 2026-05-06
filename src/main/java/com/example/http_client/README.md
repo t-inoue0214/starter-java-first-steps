@@ -43,9 +43,9 @@ sequenceDiagram
 
 | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- |
-| `HttpClientBasics.java` | GET/POST・同期/非同期・タイムアウト | なぜ HttpClient・HttpRequest・HttpResponse の3クラスに分かれているのか |
-| `ConnectionPoolDemo.java` | コネクションプール・KeepAlive・HTTP/2 | なぜ毎回 new HttpClient() するのはアンチパターンなのか |
-| `CacheStrategyDemo.java` | Cache-Control・ETag・304 Not Modified | なぜ ETag と If-None-Match でボディ転送を省けるのか |
+| [`HttpClientBasics.java`](HttpClientBasics.java) | GET/POST・同期/非同期・タイムアウト | なぜ HttpClient・HttpRequest・HttpResponse の3クラスに分かれているのか |
+| [`ConnectionPoolDemo.java`](ConnectionPoolDemo.java) | コネクションプール・KeepAlive・HTTP/2 | なぜ毎回 new HttpClient() するのはアンチパターンなのか |
+| [`CacheStrategyDemo.java`](CacheStrategyDemo.java) | Cache-Control・ETag・304 Not Modified | なぜ ETag と If-None-Match でボディ転送を省けるのか |
 
 ---
 
@@ -301,15 +301,15 @@ java -cp out/ com.example.http_client.CacheStrategyDemo
 
 ## 確認してみよう
 
-1. `HttpClientBasics.java` の同期 GET と非同期 GET で、それぞれ `System.nanoTime()` で処理時間を計測して比較してみよう。同じリクエストなのに結果に差は出るか？
+1. [`HttpClientBasics.java`](HttpClientBasics.java) の同期 GET と非同期 GET で、それぞれ `System.nanoTime()` で処理時間を計測して比較してみよう。同じリクエストなのに結果に差は出るか？
 
-2. `ConnectionPoolDemo.java` で `REQUEST_COUNT` を 10 や 20 に増やして実行してみよう。Before（毎回 new）と After（再利用）の差はどう変化するか？
+2. [`ConnectionPoolDemo.java`](ConnectionPoolDemo.java) で `REQUEST_COUNT` を 10 や 20 に増やして実行してみよう。Before（毎回 new）と After（再利用）の差はどう変化するか？
 
-3. `HttpClientBasics.java` の POST セクションで、JSON ボディを `{"name": "あなたの名前", "chapter": 13}` に変えて実行してみよう。httpbin.org のレスポンスのどのフィールドに送ったデータが含まれているか確認しよう。
+3. [`HttpClientBasics.java`](HttpClientBasics.java) の POST セクションで、JSON ボディを `{"name": "あなたの名前", "chapter": 13}` に変えて実行してみよう。httpbin.org のレスポンスのどのフィールドに送ったデータが含まれているか確認しよう。
 
-4. `CacheStrategyDemo.java` の section3 で `If-None-Match` に指定する ETag を意図的に間違った値にすると、レスポンスはどう変わるか？実行して確認しよう。
+4. [`CacheStrategyDemo.java`](CacheStrategyDemo.java) の section3 で `If-None-Match` に指定する ETag を意図的に間違った値にすると、レスポンスはどう変わるか？実行して確認しよう。
 
-5. `HttpClientBasics.java` の section2（同期 GET）のタイムアウトを 1 ミリ秒（`Duration.ofMillis(1)`）に設定して実行してみよう。`HttpTimeoutException` は発生するか？どのようなエラーメッセージが出るか？
+5. [`HttpClientBasics.java`](HttpClientBasics.java) の section2（同期 GET）のタイムアウトを 1 ミリ秒（`Duration.ofMillis(1)`）に設定して実行してみよう。`HttpTimeoutException` は発生するか？どのようなエラーメッセージが出るか？
 
 ---
 

@@ -20,12 +20,12 @@
 
 | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- |
-| `ArrayLimitation.java` | 配列の限界 | なぜ現場では配列より List を使うのか |
-| `ListVsSet.java` | List vs Set | なぜ `contains()` には HashSet を使うのか |
-| `MapComparison.java` | Map 3種比較 | なぜ順序が必要な場面で HashMap を使ってはいけないのか |
-| `ComparatorDemo.java` | Comparator | なぜラムダで比較基準を渡せるのか（第06章の応用） |
-| `MapIterationPerf.java` | Map 反復計測 | なぜ `entrySet` の方が `keySet` より速いのか |
-| `LruCache.java` | LRU キャッシュ | LinkedHashMap を使いこなすと何ができるのか |
+| [`ArrayLimitation.java`](ArrayLimitation.java) | 配列の限界 | なぜ現場では配列より List を使うのか |
+| [`ListVsSet.java`](ListVsSet.java) | List vs Set | なぜ `contains()` には HashSet を使うのか |
+| [`MapComparison.java`](MapComparison.java) | Map 3種比較 | なぜ順序が必要な場面で HashMap を使ってはいけないのか |
+| [`ComparatorDemo.java`](ComparatorDemo.java) | Comparator | なぜラムダで比較基準を渡せるのか（第06章の応用） |
+| [`MapIterationPerf.java`](MapIterationPerf.java) | Map 反復計測 | なぜ `entrySet` の方が `keySet` より速いのか |
+| [`LruCache.java`](LruCache.java) | LRU キャッシュ | LinkedHashMap を使いこなすと何ができるのか |
 
 ---
 
@@ -240,19 +240,19 @@ java -cp out/ com.example.collections_deep.LruCache
 
 ## 確認してみよう
 
-1. `ListVsSet.java` の `dataSize` を `1_000_000`（100万件）に変えて実行してみましょう。
+1. [`ListVsSet.java`](ListVsSet.java) の `dataSize` を `1_000_000`（100万件）に変えて実行してみましょう。
    10万件のときと比べて速度差はどう変わりましたか？O(n) と O(1) の意味と結びつけて考えてみましょう。
 
 2. `HashMap`・`TreeMap`・`LinkedHashMap` の3種を「順序の保証」と「検索速度」の2軸で整理してみましょう。
    「設定ファイルを読み込んで順番どおりに処理する」用途にはどれが適切か、理由とともに答えましょう。
 
-3. `MapIterationPerf.java` の Before セクション（`keySet + get` のループ）を `entrySet` ループに書き直してみましょう。
+3. [`MapIterationPerf.java`](MapIterationPerf.java) の Before セクション（`keySet + get` のループ）を `entrySet` ループに書き直してみましょう。
    ハッシュ計算が1回で済む理由をコードを見ながら説明してみましょう。
 
-4. `ComparatorDemo.java` で使っている `(a, b) -> a.getPrice() - b.getPrice()` は、第06章で学んだどのインターフェースを実装していますか？
+4. [`ComparatorDemo.java`](ComparatorDemo.java) で使っている `(a, b) -> a.getPrice() - b.getPrice()` は、第06章で学んだどのインターフェースを実装していますか？
    `list.sort()` が「高階関数」と言える理由を「引数に何を受け取るか」という観点で説明しましょう。
 
-5. `LruCache.java` のキャパシティを `3` から `2` に変えて実行してみましょう。
+5. [`LruCache.java`](LruCache.java) のキャパシティを `3` から `2` に変えて実行してみましょう。
    ステップ3（D を追加）のとき削除されるのは B ではなく何になりますか？実行前に予測してから確認しましょう。
 
 ---

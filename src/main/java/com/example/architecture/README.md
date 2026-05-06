@@ -135,13 +135,13 @@ flowchart LR
 
 | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- |
-| `BigMainAntiPattern.java` | Before: 全ロジックを1クラスに詰め込む | なぜ「大きな main」は保守できなくなるのか |
-| `onion/domain/Product.java` | ドメインエンティティ（Record） | なぜバリデーションをコンストラクタに書くのか |
-| `onion/domain/ProductRepository.java` | リポジトリインターフェース | なぜインターフェースを Domain 層に置くのか（DIP） |
-| `onion/application/ProductService.java` | ユースケース（ビジネスロジック） | なぜ具体的な DB クラスを知らなくてよいのか |
-| `onion/infrastructure/InMemoryProductRepository.java` | インフラ実装 | なぜここだけ変えれば DB 切替ができるのか |
-| `onion/presentation/ProductPresenter.java` | プレゼンテーション | なぜ表示ロジックを分離するのか |
-| `Main.java` | Composition Root（依存の組み立て） | なぜ具体的な実装を知るのはここだけでよいのか |
+| [`BigMainAntiPattern.java`](BigMainAntiPattern.java) | Before: 全ロジックを1クラスに詰め込む | なぜ「大きな main」は保守できなくなるのか |
+| [`onion/domain/Product.java`](onion/domain/Product.java) | ドメインエンティティ（Record） | なぜバリデーションをコンストラクタに書くのか |
+| [`onion/domain/ProductRepository.java`](onion/domain/ProductRepository.java) | リポジトリインターフェース | なぜインターフェースを Domain 層に置くのか（DIP） |
+| [`onion/application/ProductService.java`](onion/application/ProductService.java) | ユースケース（ビジネスロジック） | なぜ具体的な DB クラスを知らなくてよいのか |
+| [`onion/infrastructure/InMemoryProductRepository.java`](onion/infrastructure/InMemoryProductRepository.java) | インフラ実装 | なぜここだけ変えれば DB 切替ができるのか |
+| [`onion/presentation/ProductPresenter.java`](onion/presentation/ProductPresenter.java) | プレゼンテーション | なぜ表示ロジックを分離するのか |
+| [`Main.java`](Main.java) | Composition Root（依存の組み立て） | なぜ具体的な実装を知るのはここだけでよいのか |
 
 ---
 
@@ -373,9 +373,9 @@ java -cp out/ com.example.architecture.Main
 
 ## 確認してみよう
 
-1. `BigMainAntiPattern.java` の商品データを DB（H2）に変えるとしたら、何行目から何行目を修正する必要があるか考えてみよう。次に `InMemoryProductRepository` を JDBC 実装に差し替える場合と比較してみよう。
+1. [`BigMainAntiPattern.java`](BigMainAntiPattern.java) の商品データを DB（H2）に変えるとしたら、何行目から何行目を修正する必要があるか考えてみよう。次に `InMemoryProductRepository` を JDBC 実装に差し替える場合と比較してみよう。
 
-2. `ProductPresenter.java` の `showAll()` をコンソール出力ではなく JSON 文字列を返すメソッドに変えてみよう（`public String toJson()`）。`ProductService` や `Product` には変更が不要なことを確認しよう。
+2. [`ProductPresenter.java`](onion/presentation/ProductPresenter.java) の `showAll()` をコンソール出力ではなく JSON 文字列を返すメソッドに変えてみよう（`public String toJson()`）。`ProductService` や `Product` には変更が不要なことを確認しよう。
 
 3. `ProductService.addProduct()` に「同じ商品名は登録できない」というビジネスルールを追加してみよう。どの層に追加するのが正しいか考えながら実装しよう。
 

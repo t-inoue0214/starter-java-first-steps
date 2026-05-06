@@ -25,12 +25,12 @@
 
 | ファイル | テーマ | 体験できる Why |
 | :--- | :--- | :--- |
-| `StaticPitfalls.java` | static の本番トラブル | なぜ static フィールドに状態を持たせると複数スレッドで情報が混入するのか |
-| `ImmutableDesign.java` | イミュータブルな設計 | なぜ setter を持つクラスは変更の追跡が困難になるのか |
-| `TypeSafety.java` | 型で意図を表す | なぜ String や Map に頼るとバグが実行時まで発覚しないのか |
-| `InputValidation.java` | 外部入力の境界防衛 | なぜ境界でバリデーションを行うと内部コードが常に正常値として扱えるのか |
-| `ComplexConditions.java` | 複雑条件はメソッド化する | なぜ条件分岐をメソッドに切り出すと未処理ケースを防げるのか |
-| `ClassResponsibility.java` | クラスの責務を守る | なぜ「似ているから」でクラスを共有すると無関係な変更が波及するのか |
+| [`StaticPitfalls.java`](StaticPitfalls.java) | static の本番トラブル | なぜ static フィールドに状態を持たせると複数スレッドで情報が混入するのか |
+| [`ImmutableDesign.java`](ImmutableDesign.java) | イミュータブルな設計 | なぜ setter を持つクラスは変更の追跡が困難になるのか |
+| [`TypeSafety.java`](TypeSafety.java) | 型で意図を表す | なぜ String や Map に頼るとバグが実行時まで発覚しないのか |
+| [`InputValidation.java`](InputValidation.java) | 外部入力の境界防衛 | なぜ境界でバリデーションを行うと内部コードが常に正常値として扱えるのか |
+| [`ComplexConditions.java`](ComplexConditions.java) | 複雑条件はメソッド化する | なぜ条件分岐をメソッドに切り出すと未処理ケースを防げるのか |
+| [`ClassResponsibility.java`](ClassResponsibility.java) | クラスの責務を守る | なぜ「似ているから」でクラスを共有すると無関係な変更が波及するのか |
 
 ---
 
@@ -341,12 +341,12 @@ java -cp out/ com.example.safe_coding.ClassResponsibility
 
 ## 確認してみよう
 
-1. `StaticPitfalls.java` を実行して Before のセクションで `userId` の表示が混入するケースを確認してみよう。混入が起きないケースと起きるケースの違いを説明してみよう。
-2. `ImmutableDesign.java` の `MutableUserProfile` に setter を追加した場合と削除した場合で、テストを書く難易度がどう変わるか考えてみよう。
-3. `TypeSafety.java` で `OrderStatus` に新しい値（例: `SHIPPED`）を追加し、switch 式のケースを1つ削除したときにコンパイルエラーが出ることを確認してみよう。
-4. `InputValidation.java` の `parseAge()` に新しいバリデーション条件（例: 成人のみ許可）を追加してみよう。境界以外の内部コードを変更せずに対応できることを確認してみよう。
-5. `ComplexConditions.java` の `handleRequestBad()` で `result = "(設定なし)"` の行を削除したときのコンパイラの動作を確認してみよう。同様の変更を `resolveEffectiveSetting()` に対して行うとどうなるか比較してみよう。
-6. `ClassResponsibility.java` の `OrderData` と `CartData` に共通する処理をユーティリティクラスにまとめた場合と、それぞれのクラスに個別のメソッドを持たせた場合で、「将来の変更のしやすさ」がどう違うか考えてみよう。
+1. [`StaticPitfalls.java`](StaticPitfalls.java) を実行して Before のセクションで `userId` の表示が混入するケースを確認してみよう。混入が起きないケースと起きるケースの違いを説明してみよう。
+2. [`ImmutableDesign.java`](ImmutableDesign.java) の `MutableUserProfile` に setter を追加した場合と削除した場合で、テストを書く難易度がどう変わるか考えてみよう。
+3. [`TypeSafety.java`](TypeSafety.java) で `OrderStatus` に新しい値（例: `SHIPPED`）を追加し、switch 式のケースを1つ削除したときにコンパイルエラーが出ることを確認してみよう。
+4. [`InputValidation.java`](InputValidation.java) の `parseAge()` に新しいバリデーション条件（例: 成人のみ許可）を追加してみよう。境界以外の内部コードを変更せずに対応できることを確認してみよう。
+5. [`ComplexConditions.java`](ComplexConditions.java) の `handleRequestBad()` で `result = "(設定なし)"` の行を削除したときのコンパイラの動作を確認してみよう。同様の変更を `resolveEffectiveSetting()` に対して行うとどうなるか比較してみよう。
+6. [`ClassResponsibility.java`](ClassResponsibility.java) の `OrderData` と `CartData` に共通する処理をユーティリティクラスにまとめた場合と、それぞれのクラスに個別のメソッドを持たせた場合で、「将来の変更のしやすさ」がどう違うか考えてみよう。
 
 ---
 

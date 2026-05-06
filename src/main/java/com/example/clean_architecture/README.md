@@ -89,18 +89,18 @@ flowchart LR
 
 | ファイル | 層 | 体験できる Why |
 | --- | --- | --- |
-| `clean/entity/Product.java` | Entity | 第15章と同じ Entity——アーキテクチャが変わっても Entity は変わらない |
-| `clean/usecase/AddProductRequest.java` | Use Case | なぜ生の引数ではなく Request DTO を使うのか |
-| `clean/usecase/ProductResponse.java` | Use Case | なぜ Entity をそのまま返さず DTO に変換するのか |
-| `clean/usecase/AddProductUseCase.java` | Use Case | なぜ Use Case をインターフェース（入力ポート）にするのか |
-| `clean/usecase/ProductPresenterPort.java` | Use Case | なぜ出力を「戻り値」ではなくコールバックで渡すのか（出力ポート） |
-| `clean/usecase/ProductGatewayPort.java` | Use Case | Onion の ProductRepository と何が違うのか |
-| `clean/usecase/AddProductInteractor.java` | Use Case | Interactor がどうやって Presenter を呼ぶのか |
-| `clean/usecase/GetAllProductsInteractor.java` | Use Case | Entity を DTO に変換するのはどこの責務か |
-| `clean/adapter/ProductController.java` | Adapter | Controller が「変換だけ」をする理由 |
-| `clean/adapter/ConsolePresenter.java` | Adapter | 出力ポートを implements する Presenter の役割 |
-| `clean/infrastructure/InMemoryProductGateway.java` | Infrastructure | `nextId()` を Gateway に委譲する設計の理由 |
-| `Main.java` | Composition Root | なぜ Presenter を先に作る必要があるのか |
+| [`clean/entity/Product.java`](clean/entity/Product.java) | Entity | 第15章と同じ Entity——アーキテクチャが変わっても Entity は変わらない |
+| [`clean/usecase/AddProductRequest.java`](clean/usecase/AddProductRequest.java) | Use Case | なぜ生の引数ではなく Request DTO を使うのか |
+| [`clean/usecase/ProductResponse.java`](clean/usecase/ProductResponse.java) | Use Case | なぜ Entity をそのまま返さず DTO に変換するのか |
+| [`clean/usecase/AddProductUseCase.java`](clean/usecase/AddProductUseCase.java) | Use Case | なぜ Use Case をインターフェース（入力ポート）にするのか |
+| [`clean/usecase/ProductPresenterPort.java`](clean/usecase/ProductPresenterPort.java) | Use Case | なぜ出力を「戻り値」ではなくコールバックで渡すのか（出力ポート） |
+| [`clean/usecase/ProductGatewayPort.java`](clean/usecase/ProductGatewayPort.java) | Use Case | Onion の ProductRepository と何が違うのか |
+| [`clean/usecase/AddProductInteractor.java`](clean/usecase/AddProductInteractor.java) | Use Case | Interactor がどうやって Presenter を呼ぶのか |
+| [`clean/usecase/GetAllProductsInteractor.java`](clean/usecase/GetAllProductsInteractor.java) | Use Case | Entity を DTO に変換するのはどこの責務か |
+| [`clean/adapter/ProductController.java`](clean/adapter/ProductController.java) | Adapter | Controller が「変換だけ」をする理由 |
+| [`clean/adapter/ConsolePresenter.java`](clean/adapter/ConsolePresenter.java) | Adapter | 出力ポートを implements する Presenter の役割 |
+| [`clean/infrastructure/InMemoryProductGateway.java`](clean/infrastructure/InMemoryProductGateway.java) | Infrastructure | `nextId()` を Gateway に委譲する設計の理由 |
+| [`Main.java`](Main.java) | Composition Root | なぜ Presenter を先に作る必要があるのか |
 
 ---
 

@@ -34,11 +34,11 @@ flowchart LR
 
 | # | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- | --- |
-| 1 | `StreamAPI.java` | Stream API | 同じ処理を3通りで書いて「パラダイムの使い分け」を体験する |
-| 2 | `OptionalBasics.java` | Optional | `null` を型で表現して「ヌルポ」を防ぐ |
-| 3 | `DateTimeApi.java` | java.time | `SimpleDateFormat` の問題を `DateTimeFormatter` で解決する |
-| 4 | `ExceptionHandling.java` | 例外処理 | 空の catch が最も危険なアンチパターンである理由を体験する |
-| 5 | `ImmutableDesign.java` | イミュータブル設計 | 第04章の Dog クラスに setter がなかった理由への答え |
+| 1 | [`StreamAPI.java`](StreamAPI.java) | Stream API | 同じ処理を3通りで書いて「パラダイムの使い分け」を体験する |
+| 2 | [`OptionalBasics.java`](OptionalBasics.java) | Optional | `null` を型で表現して「ヌルポ」を防ぐ |
+| 3 | [`DateTimeApi.java`](DateTimeApi.java) | java.time | `SimpleDateFormat` の問題を `DateTimeFormatter` で解決する |
+| 4 | [`ExceptionHandling.java`](ExceptionHandling.java) | 例外処理 | 空の catch が最も危険なアンチパターンである理由を体験する |
+| 5 | [`ImmutableDesign.java`](ImmutableDesign.java) | イミュータブル設計 | 第04章の Dog クラスに setter がなかった理由への答え |
 
 ---
 
@@ -93,7 +93,7 @@ java -cp out/ com.example.modern_api.StreamAPI
 
 **Before（null を返すメソッドの問題）:**
 
-`null` を返すメソッドは呼び出し元に null チェックを強制する。チェックを忘れると本番で `NullPointerException` が発生する—第07章 `LruCache.java` で残した問題への答えがここにある。
+`null` を返すメソッドは呼び出し元に null チェックを強制する。チェックを忘れると本番で `NullPointerException` が発生する—第07章 [`LruCache.java`](LruCache.java) で残した問題への答えがここにある。
 
 **After（Optional で「値がない」を型として表現）:**
 
@@ -271,19 +271,19 @@ java -cp out/ com.example.modern_api.ImmutableDesign
 
 ## 確認してみよう
 
-1. `StreamAPI.java` の Step3（Stream API）を Step1（手続き型の `for` ループ）に書き直してみましょう。
+1. [`StreamAPI.java`](StreamAPI.java) の Step3（Stream API）を Step1（手続き型の `for` ループ）に書き直してみましょう。
    コードの行数がどれだけ増えるか確認して、Stream API が登場した動機を実感しましょう。
 
-2. `OptionalBasics.java` の `repo.findById(99)` で `orElseThrow()` を使った場合、どの例外が投げられますか？
+2. [`OptionalBasics.java`](OptionalBasics.java) の `repo.findById(99)` で `orElseThrow()` を使った場合、どの例外が投げられますか？
    `try-catch` で捕捉して、エラーメッセージを表示してみましょう。
 
-3. `DateTimeApi.java` に「自分の誕生日から今日まで何日経過したか」を計算して表示するコードを追加してみましょう。
+3. [`DateTimeApi.java`](DateTimeApi.java) に「自分の誕生日から今日まで何日経過したか」を計算して表示するコードを追加してみましょう。
    `LocalDate.of()` と `ChronoUnit.DAYS.between()` を使う。
 
-4. `ExceptionHandling.java` のアンチパターン（空の `catch`）に `System.err.println(e.getMessage())` を追加してみましょう。
+4. [`ExceptionHandling.java`](ExceptionHandling.java) のアンチパターン（空の `catch`）に `System.err.println(e.getMessage())` を追加してみましょう。
    出力がどう変わるか確認して、ログを残すことの重要性を実感しましょう。
 
-5. `ImmutableDesign.java` の `UserBean` に `setAge(-1)` を呼んだとき、`UserImmutable` の同じ操作と何が違いますか？
+5. [`ImmutableDesign.java`](ImmutableDesign.java) の `UserBean` に `setAge(-1)` を呼んだとき、`UserImmutable` の同じ操作と何が違いますか？
    両者の挙動の違いを「いつエラーが分かるか」という観点で説明しましょう。
 
 6. `record` が自動生成する `toString()` の出力形式を確認しましょう。

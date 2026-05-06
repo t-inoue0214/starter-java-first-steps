@@ -41,13 +41,13 @@ flowchart LR
 
 | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- |
-| `FileReadWrite.java` | ファイルの読み書き | なぜ BufferedReader/Writer より Files.readString() が現場で好まれるのか |
-| `CsvHandler.java` | CSV の読み書き | なぜ split(",") だけでは実運用に耐えないのか |
-| `HttpServerBasics.java` | HTTP サーバー（Before） | フレームワークが隠している仕組みを体験する |
-| `HttpServerRefactored.java` | HTTP サーバー（After） | なぜ Handler / Service に分けると保守しやすいのか |
-| `PropertiesConfig.java` | 設定ファイル（.properties） | なぜ設定をコードに書くと変更のたびに再コンパイルが必要になるのか |
-| `XmlProcessing.java` | XML 生成・解析・スキーマ検証 | なぜ CSV より XML が「構造の強制」に向いているのか |
-| `LoggingBasics.java` | java.util.logging | なぜ System.out.println() はログの代わりにならないのか |
+| [`FileReadWrite.java`](FileReadWrite.java) | ファイルの読み書き | なぜ BufferedReader/Writer より Files.readString() が現場で好まれるのか |
+| [`CsvHandler.java`](CsvHandler.java) | CSV の読み書き | なぜ split(",") だけでは実運用に耐えないのか |
+| [`HttpServerBasics.java`](HttpServerBasics.java) | HTTP サーバー（Before） | フレームワークが隠している仕組みを体験する |
+| [`HttpServerRefactored.java`](HttpServerRefactored.java) | HTTP サーバー（After） | なぜ Handler / Service に分けると保守しやすいのか |
+| [`PropertiesConfig.java`](PropertiesConfig.java) | 設定ファイル（.properties） | なぜ設定をコードに書くと変更のたびに再コンパイルが必要になるのか |
+| [`XmlProcessing.java`](XmlProcessing.java) | XML 生成・解析・スキーマ検証 | なぜ CSV より XML が「構造の強制」に向いているのか |
+| [`LoggingBasics.java`](LoggingBasics.java) | java.util.logging | なぜ System.out.println() はログの代わりにならないのか |
 
 ---
 
@@ -294,7 +294,7 @@ logger.severe("バグ: 在庫数が負の値です");      // 本番で表示（
 | `FINE` | デバッグ詳細 | 非表示（開発のみ） |
 | `FINER` / `FINEST` | 詳細トレース | 非表示 |
 
-> **[logging.properties]** `java -Djava.util.logging.config.file=logging.properties` を使うとコードを変えずにログレベルを変更できる。`PropertiesConfig.java` の「設定の外出し」と同じ考え方だ。
+> **[logging.properties]** `java -Djava.util.logging.config.file=logging.properties` を使うとコードを変えずにログレベルを変更できる。[`PropertiesConfig.java`](PropertiesConfig.java) の「設定の外出し」と同じ考え方だ。
 
 ```bash
 javac -d out/ src/main/java/com/example/io_and_network/LoggingBasics.java
@@ -361,27 +361,27 @@ java -cp out/ com.example.io_and_network.HttpServerRefactored
 
 ## 確認してみよう
 
-1. `FileReadWrite.java` の計測セクションで、データ量を 10,000 行に増やして実行してみましょう。
+1. [`FileReadWrite.java`](FileReadWrite.java) の計測セクションで、データ量を 10,000 行に増やして実行してみましょう。
    ファイルI/O の時間はどう変化しますか？メモリ操作との比率はどう変わりましたか？
 
-2. `CsvHandler.java` で、名前に改行文字（`\n`）を含む商品を追加して書き込んでみましょう。
+2. [`CsvHandler.java`](CsvHandler.java) で、名前に改行文字（`\n`）を含む商品を追加して書き込んでみましょう。
    RFC 4180 のクォート処理で正しく扱えるか確認しましょう。
 
-3. `HttpServerBasics.java` に `GET /hello?name=...` エンドポイントを追加してみましょう。
+3. [`HttpServerBasics.java`](HttpServerBasics.java) に `GET /hello?name=...` エンドポイントを追加してみましょう。
    main がさらに長くなることを確認して、リファクタリングが必要な理由を実感しましょう。
 
-4. `HttpServerRefactored.java` に新しいエンドポイント `GET /greet?name=...` を追加してみましょう。
+4. [`HttpServerRefactored.java`](HttpServerRefactored.java) に新しいエンドポイント `GET /greet?name=...` を追加してみましょう。
    新しい Handler クラスを1つ追加するだけで済むことを確認しましょう。
 
-5. `HttpServerBasics.java` の各ハンドラーをユニットテストしようとしたとき、何が問題になりますか？
-   `HttpServerRefactored.java` の `TimeService` はなぜテストしやすいか、理由を説明しましょう。
+5. [`HttpServerBasics.java`](HttpServerBasics.java) の各ハンドラーをユニットテストしようとしたとき、何が問題になりますか？
+   [`HttpServerRefactored.java`](HttpServerRefactored.java) の `TimeService` はなぜテストしやすいか、理由を説明しましょう。
 
-6. `PropertiesConfig.java` で、存在しないキーを `getProperty(key)` で取得するとどうなるか確認しよう。
+6. [`PropertiesConfig.java`](PropertiesConfig.java) で、存在しないキーを `getProperty(key)` で取得するとどうなるか確認しよう。
    `getProperty(key, defaultValue)` との違いを説明してみよう。
 
-7. `XmlProcessing.java` で、XSD に `minOccurs="1"` で定義された `<name>` 要素を削除した不正なXMLを作り、スキーマ検証してみよう。どんなエラーメッセージが出るか確認しよう。
+7. [`XmlProcessing.java`](XmlProcessing.java) で、XSD に `minOccurs="1"` で定義された `<name>` 要素を削除した不正なXMLを作り、スキーマ検証してみよう。どんなエラーメッセージが出るか確認しよう。
 
-8. `LoggingBasics.java` の ConsoleHandler のレベルを `Level.FINE` に変更して実行してみよう。どのログ行が追加で表示されるか確認しよう。本番でいつ有用かも考えてみよう。
+8. [`LoggingBasics.java`](LoggingBasics.java) の ConsoleHandler のレベルを `Level.FINE` に変更して実行してみよう。どのログ行が追加で表示されるか確認しよう。本番でいつ有用かも考えてみよう。
 
 ---
 

@@ -43,9 +43,9 @@ graph LR
 
 | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- |
-| `SortingAlgorithms.java` | 4種のソートの実装と計測 | O(n²) と O(n log n) の差が1000倍になる理由 |
-| `BinarySearch.java` | 二分探索の実装と計測 | ソート済みであれば100万件でも20回で見つかる理由 |
-| `StandardLibrarySort.java` | 標準ライブラリの使い方 | なぜソートを自分で実装してはいけないのか |
+| [`SortingAlgorithms.java`](SortingAlgorithms.java) | 4種のソートの実装と計測 | O(n²) と O(n log n) の差が1000倍になる理由 |
+| [`BinarySearch.java`](BinarySearch.java) | 二分探索の実装と計測 | ソート済みであれば100万件でも20回で見つかる理由 |
+| [`StandardLibrarySort.java`](StandardLibrarySort.java) | 標準ライブラリの使い方 | なぜソートを自分で実装してはいけないのか |
 
 ---
 
@@ -181,15 +181,15 @@ java -cp out/ com.example.algorithms.StandardLibrarySort
 
 ## 確認してみよう
 
-1. `SortingAlgorithms.java` のデータ件数を 1,000 件に変えて実行してみましょう。
+1. [`SortingAlgorithms.java`](SortingAlgorithms.java) のデータ件数を 1,000 件に変えて実行してみましょう。
    10万件のときと比べて各ソートの処理時間の比率はどう変わりましたか？O(n²) と O(n log n) の違いを計算で確かめましょう。
 
-2. `BinarySearch.java` のデバッグ出力を読んで、対象値を見つけるまでに何回「探索範囲が半分になったか」を数えてみましょう。
+2. [`BinarySearch.java`](BinarySearch.java) のデバッグ出力を読んで、対象値を見つけるまでに何回「探索範囲が半分になったか」を数えてみましょう。
    `log₂(100,000)` と一致するか確認しましょう。
 
-3. `BinarySearch.java` の未ソート配列（`unsorted`）に `binarySearch()` を呼ぶと、なぜ誤った結果が返るのかをコードを追いながら説明してみましょう。
+3. [`BinarySearch.java`](BinarySearch.java) の未ソート配列（`unsorted`）に `binarySearch()` を呼ぶと、なぜ誤った結果が返るのかをコードを追いながら説明してみましょう。
 
-4. `StandardLibrarySort.java` に新しい `Product`（例: `"スマホスタンド", 2_000, "PC周辺機器"`）を追加して、カテゴリ → 価格の複合ソート結果を確認しましょう。
+4. [`StandardLibrarySort.java`](StandardLibrarySort.java) に新しい `Product`（例: `"スマホスタンド", 2_000, "PC周辺機器"`）を追加して、カテゴリ → 価格の複合ソート結果を確認しましょう。
 
 5. バブルソートの外側のループを「最後に交換が発生しなかったら終了する」という最適化（早期終了）に改善してみましょう。
    既にソート済みの配列を渡したときに比較回数がどう変わるかを確認しましょう。

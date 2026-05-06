@@ -56,7 +56,8 @@
 ## 2. 学習の始め方
 
 1. Codespaces を起動
-    - [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/t-inoue0214/starter-java-first-steps)
+    - フォーク済みの自分のリポジトリで、`Code` タブ → `Codespaces` タブ → `Create codespace on main` をクリックする。
+    - 起動手順の詳細は [1. 開発環境](#-1-開発環境-development-environment) を参照。
 
 1. **環境の準備を待つ**
     - ブラウザでVS Codeが起動する。

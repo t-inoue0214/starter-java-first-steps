@@ -58,10 +58,10 @@ flowchart TD
 
 | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- |
-| `ThreadBasics.java` | スレッドの基本・競合状態 | なぜ `synchronized` と `AtomicInteger` が必要なのか |
-| `DeadlockDemo.java` | デッドロックの体験と回避 | なぜロック取得順序を全スレッドで統一するのか |
-| `ExecutorServiceDemo.java` | ExecutorService・Future・CompletableFuture | なぜ生スレッドではなくスレッドプールを使うのか |
-| `VirtualThreadDemo.java` | 仮想スレッド（Java 21） | なぜ Java 21 で I/O バウンドのサーバーが速くなるのか |
+| [`ThreadBasics.java`](ThreadBasics.java) | スレッドの基本・競合状態 | なぜ `synchronized` と `AtomicInteger` が必要なのか |
+| [`DeadlockDemo.java`](DeadlockDemo.java) | デッドロックの体験と回避 | なぜロック取得順序を全スレッドで統一するのか |
+| [`ExecutorServiceDemo.java`](ExecutorServiceDemo.java) | ExecutorService・Future・CompletableFuture | なぜ生スレッドではなくスレッドプールを使うのか |
+| [`VirtualThreadDemo.java`](VirtualThreadDemo.java) | 仮想スレッド（Java 21） | なぜ Java 21 で I/O バウンドのサーバーが速くなるのか |
 
 ---
 
@@ -350,15 +350,15 @@ java -cp out/ com.example.concurrency.VirtualThreadDemo
 
 ## 確認してみよう
 
-1. `ThreadBasics.java` で `unsafeCounter` をインクリメントするスレッド数を 1000 本・1回ずつに変えて実行してみよう。競合状態は発生するか？また、何度実行しても同じ結果になるか確認しよう。
+1. [`ThreadBasics.java`](ThreadBasics.java) で `unsafeCounter` をインクリメントするスレッド数を 1000 本・1回ずつに変えて実行してみよう。競合状態は発生するか？また、何度実行しても同じ結果になるか確認しよう。
 
-2. `DeadlockDemo.java` のロック順序統一セクションで、両スレッドが `lockA → lockB` の順に取得しているとき、なぜデッドロックが起きないか説明してみよう。「Thread-2 が lockA を待つとき Thread-1 はどういう状態にあるか」という視点で考えよう。
+2. [`DeadlockDemo.java`](DeadlockDemo.java) のロック順序統一セクションで、両スレッドが `lockA → lockB` の順に取得しているとき、なぜデッドロックが起きないか説明してみよう。「Thread-2 が lockA を待つとき Thread-1 はどういう状態にあるか」という視点で考えよう。
 
-3. `ExecutorServiceDemo.java` で `newFixedThreadPool(3)` を `newFixedThreadPool(1)` に変えて実行してみよう。処理時間はどう変わるか？スレッド数を増やしても一定以上は速くならない理由も考えよう。
+3. [`ExecutorServiceDemo.java`](ExecutorServiceDemo.java) で `newFixedThreadPool(3)` を `newFixedThreadPool(1)` に変えて実行してみよう。処理時間はどう変わるか？スレッド数を増やしても一定以上は速くならない理由も考えよう。
 
-4. `ExecutorServiceDemo.java` の `Future.get()` を呼ぶ前に「メインスレッドは別の処理もできる」と説明した。具体的にどんな処理（例: ログ出力・別のDBクエリ発行など）を追加して試せるか考え、実際にコードを書いて動かしてみよう。
+4. [`ExecutorServiceDemo.java`](ExecutorServiceDemo.java) の `Future.get()` を呼ぶ前に「メインスレッドは別の処理もできる」と説明した。具体的にどんな処理（例: ログ出力・別のDBクエリ発行など）を追加して試せるか考え、実際にコードを書いて動かしてみよう。
 
-5. `VirtualThreadDemo.java` でプラットフォームスレッドと仮想スレッドそれぞれ 1000 本を起動したとき、処理時間に差はあったか？処理がCPUバウンドのケースとI/Oバウンドのケースでは、仮想スレッドのメリットに差が出るはずだ。なぜ差が出る（または出ない）のかを説明してみよう。
+5. [`VirtualThreadDemo.java`](VirtualThreadDemo.java) でプラットフォームスレッドと仮想スレッドそれぞれ 1000 本を起動したとき、処理時間に差はあったか？処理がCPUバウンドのケースとI/Oバウンドのケースでは、仮想スレッドのメリットに差が出るはずだ。なぜ差が出る（または出ない）のかを説明してみよう。
 
 ---
 

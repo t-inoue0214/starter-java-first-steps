@@ -42,9 +42,9 @@ sequenceDiagram
 
 | ファイル | テーマ | 体験できる Why |
 | --- | --- | --- |
-| `ConnectionBasics.java` | JDBC 接続・CRUD | フレームワークが隠している接続・SQL実行の仕組みを手書きで体験する |
-| `SqlInjectionDemo.java` | SQLインジェクション | なぜ PreparedStatement でなければならないのかを攻撃成立で体験する |
-| `TransactionDemo.java` | トランザクション | なぜ auto-commit のままだとお金が消えるのかを実測で体験する |
+| [`ConnectionBasics.java`](ConnectionBasics.java) | JDBC 接続・CRUD | フレームワークが隠している接続・SQL実行の仕組みを手書きで体験する |
+| [`SqlInjectionDemo.java`](SqlInjectionDemo.java) | SQLインジェクション | なぜ PreparedStatement でなければならないのかを攻撃成立で体験する |
+| [`TransactionDemo.java`](TransactionDemo.java) | トランザクション | なぜ auto-commit のままだとお金が消えるのかを実測で体験する |
 
 ---
 
@@ -243,18 +243,18 @@ java -cp "out/:lib/h2.jar" com.example.database_jdbc.TransactionDemo
 
 ## 確認してみよう
 
-1. `ConnectionBasics.java` に `SELECT WHERE price >= ?` で価格フィルタを追加してみよう。
+1. [`ConnectionBasics.java`](ConnectionBasics.java) に `SELECT WHERE price >= ?` で価格フィルタを追加してみよう。
    5,000 円以上の商品だけを取得する SQL を PreparedStatement で実装しよう。
 
-2. `SqlInjectionDemo.java` の `vulnerableLogin()` に別の攻撃パターン `'; DROP TABLE users; --` を試してみよう。
+2. [`SqlInjectionDemo.java`](SqlInjectionDemo.java) の `vulnerableLogin()` に別の攻撃パターン `'; DROP TABLE users; --` を試してみよう。
    テーブルが削除されるか確認して、なぜ H2 の `Statement` がこれを許すのかを説明しよう。
 
-3. `TransactionDemo.java` の `transferWithTransaction()` で、送金後の残高チェックを「Bob の残高が上限（200,000 円）を超えたらロールバック」に変えてみよう。
+3. [`TransactionDemo.java`](TransactionDemo.java) の `transferWithTransaction()` で、送金後の残高チェックを「Bob の残高が上限（200,000 円）を超えたらロールバック」に変えてみよう。
 
-4. `ConnectionBasics.java` の `Connection` を try-with-resources の外でクローズするように書き直してみよう（finally を使う）。
+4. [`ConnectionBasics.java`](ConnectionBasics.java) の `Connection` を try-with-resources の外でクローズするように書き直してみよう（finally を使う）。
    try-with-resources の方が何行少ないか比較しよう。
 
-5. `TransactionDemo.java` で `conn.setAutoCommit(false)` を削除したとき、送金の結果はどう変わるか？
+5. [`TransactionDemo.java`](TransactionDemo.java) で `conn.setAutoCommit(false)` を削除したとき、送金の結果はどう変わるか？
    実行して確認しよう。
 
 ---
